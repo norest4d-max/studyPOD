@@ -5,6 +5,7 @@ A flashcard quiz app that tests vocabulary with multiple-choice questions.
 """
 
 import random
+import re
 import time
 import sys
 from pathlib import Path
@@ -28,10 +29,13 @@ class Theme:
     BG_WHITE = '\033[107m'
     BG_GREY = '\033[100m'
     
+    # Design constants
+    BOX_BORDER_WIDTH = 4  # Width of box borders and spacing ('│ ' + ' │')
+    SEPARATOR = '•'  # Separator character for lists
+    
     @staticmethod
     def strip_ansi(text):
         """Remove ANSI escape codes from text for length calculation."""
-        import re
         ansi_escape = re.compile(r'\033\[[0-9;]*m')
         return ansi_escape.sub('', text)
     
@@ -75,7 +79,7 @@ class Theme:
         """Line inside a box with padding."""
         # Strip ANSI codes to get actual display length
         display_length = len(Theme.strip_ansi(text))
-        padding = width - display_length - 4
+        padding = width - display_length - Theme.BOX_BORDER_WIDTH
         return f"{Theme.GREY}│ {Theme.RESET}{text}{' ' * padding}{Theme.GREY} │{Theme.RESET}"
     
     @staticmethod
@@ -142,8 +146,8 @@ class QuizApp:
         """Let user choose quiz direction."""
         print()
         print(Theme.subheader("Choose quiz mode"))
-        print(Theme.muted("  1. Word → Definition  (given a word, choose the correct definition)"))
-        print(Theme.muted("  2. Definition → Word  (given a definition, choose the correct word)"))
+        print(Theme.muted("1. Word → Definition  (given a word, choose the correct definition)"))
+        print(Theme.muted("2. Definition → Word  (given a definition, choose the correct word)"))
         
         while True:
             choice = input(f"\n{Theme.GREY}Enter 1 or 2:{Theme.RESET} ").strip()
@@ -319,7 +323,7 @@ class QuizApp:
         print(Theme.box_line(Theme.header("  SUMMARY  ")))
         print(Theme.box_line(""))
         print(Theme.box_line(f"{Theme.emphasis(f'{correct_count}/{total_count}')} correct ({percentage:.1f}%)"))
-        print(Theme.box_line(Theme.muted(f"Total time: {total_time:.1f}s  •  Avg: {avg_time:.1f}s")))
+        print(Theme.box_line(Theme.muted(f"Total time: {total_time:.1f}s  {Theme.SEPARATOR}  Avg: {avg_time:.1f}s")))
         print(Theme.box_bottom())
         
         if percentage == 100:
