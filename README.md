@@ -1,6 +1,14 @@
 # studyPOD
 Streamlined flashcard app built for fast review and long-term retention.
 
+## Design Philosophy
+
+StudyPOD features an **Apple-inspired minimal design** with a clean black, white, and grey aesthetic. The interface emphasizes clarity and focus through:
+- Premium typography and spacing
+- Minimal box drawing characters for structure
+- Muted, understated feedback
+- Distraction-free learning experience
+
 ## Features
 
 - **Load Custom Vocabulary**: Import word-definition pairs from .txt files
@@ -80,27 +88,30 @@ See `example_vocabulary.txt` for a complete example.
 ## Example Session
 
 ```
-StudyPOD - Vocabulary Quiz Application
-============================================================
+┌──────────────────────────────────────────────────────────┐
+│   StudyPOD                                              │
+│ Vocabulary Quiz Application                             │
+└──────────────────────────────────────────────────────────┘
 
-Enter the path to your vocabulary file (.txt): example_vocabulary.txt
-Successfully loaded 20 word-definition pairs
+Enter vocabulary file path (.txt): example_vocabulary.txt
+✓ Loaded 20 word-definition pairs
 
-Choose quiz mode:
-1. Word -> Definition (given a word, choose the correct definition)
-2. Definition -> Word (given a definition, choose the correct word)
+Choose quiz mode
+  1. Word → Definition  (given a word, choose the correct definition)
+  2. Definition → Word  (given a definition, choose the correct word)
 
 Enter 1 or 2: 1
-Quiz mode: Word to Definition
+Quiz mode: Word → Definition
 
 How many questions? (1-20, or press Enter for all): 5
 
-============================================================
-Starting Quiz: 5 questions
-============================================================
+┌──────────────────────────────────────────────────────────┐
+│ Starting Quiz: 5 questions                               │
+└──────────────────────────────────────────────────────────┘
 
-Question 1/5
-============================================================
+────────────────────────────────────────────────────────────
+  Question 1 of 5  
+────────────────────────────────────────────────────────────
 
 Word: algorithm
 
@@ -113,9 +124,9 @@ Choose the correct definition:
 
 Your answer (1-4): 2
 
-✓ CORRECT!
+✓ CORRECT
 You know the word: 'algorithm'
-Time taken: 3.45 seconds
+Time: 3.45s
 ```
 
 ## Tips for Effective Learning
