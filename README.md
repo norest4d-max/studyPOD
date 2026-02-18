@@ -1,6 +1,10 @@
 # studyPOD
 Streamlined flashcard app built for fast review and long-term retention.
 
+## 🚀 Quick Access
+
+**Run `python3 quiz_app.py` in your terminal to start the quiz application.**
+
 ## Design Philosophy
 
 StudyPOD features an **Apple-inspired minimal design** with a clean black, white, and grey aesthetic. The interface emphasizes clarity and focus through:
