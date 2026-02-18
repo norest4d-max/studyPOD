@@ -29,6 +29,13 @@ class Theme:
     BG_GREY = '\033[100m'
     
     @staticmethod
+    def strip_ansi(text):
+        """Remove ANSI escape codes from text for length calculation."""
+        import re
+        ansi_escape = re.compile(r'\033\[[0-9;]*m')
+        return ansi_escape.sub('', text)
+    
+    @staticmethod
     def header(text):
         """Premium header style - bold white on black."""
         return f"{Theme.BG_BLACK}{Theme.WHITE}{Theme.BOLD} {text} {Theme.RESET}"
@@ -66,7 +73,9 @@ class Theme:
     @staticmethod
     def box_line(text, width=60):
         """Line inside a box with padding."""
-        padding = width - len(text) - 4
+        # Strip ANSI codes to get actual display length
+        display_length = len(Theme.strip_ansi(text))
+        padding = width - display_length - 4
         return f"{Theme.GREY}│ {Theme.RESET}{text}{' ' * padding}{Theme.GREY} │{Theme.RESET}"
     
     @staticmethod
