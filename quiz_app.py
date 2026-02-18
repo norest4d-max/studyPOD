@@ -81,10 +81,16 @@ class QuizApp:
     def generate_wrong_answers(self, correct_answer, all_options):
         """Generate 3 wrong answers for multiple choice."""
         options = [opt for opt in all_options if opt != correct_answer]
+        
+        # Handle edge case: if we have fewer than 3 other options
+        if len(options) == 0:
+            # This shouldn't happen in normal use, but handle it gracefully
+            return [correct_answer, correct_answer, correct_answer]
+        
         if len(options) < 3:
             # If we don't have enough options, duplicate some
             while len(options) < 3:
-                options.extend(options)
+                options.extend(options[:3-len(options)])
                 
         return random.sample(options, min(3, len(options)))
         
@@ -287,7 +293,26 @@ class QuizApp:
             choice = input("\nWould you like to take another quiz? (y/n): ").strip().lower()
             if choice == 'y':
                 self.choose_quiz_mode()
-                self.run_quiz()
+                
+                # Ask how many questions for the next quiz
+                while True:
+                    max_q = len(self.word_definitions)
+                    num_input = input(f"\nHow many questions? (1-{max_q}, or press Enter for all): ").strip()
+                    
+                    if not num_input:
+                        num_questions = max_q
+                        break
+                    
+                    try:
+                        num_questions = int(num_input)
+                        if 1 <= num_questions <= max_q:
+                            break
+                        else:
+                            print(f"Please enter a number between 1 and {max_q}")
+                    except ValueError:
+                        print("Invalid input. Please enter a number.")
+                
+                self.run_quiz(num_questions)
             elif choice == 'n':
                 print("\nThank you for using StudyPOD! Keep learning!")
                 break

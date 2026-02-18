@@ -75,6 +75,8 @@ def test_file_format():
     """Test loading file with various formats."""
     print("\nTest 5: File format handling...")
     
+    import tempfile
+    
     # Create test file with comments and empty lines
     test_content = """# This is a comment
 test1:definition1
@@ -83,21 +85,24 @@ test2:definition2
 # Another comment
 test3:definition3
 """
-    with open('/tmp/test_vocab.txt', 'w') as f:
+    # Use tempfile for cross-platform compatibility
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
         f.write(test_content)
+        temp_path = f.name
         
-    app = QuizApp()
-    result = app.load_vocabulary_file('/tmp/test_vocab.txt')
-    
-    assert result == True, "Failed to load test file"
-    assert len(app.word_definitions) == 3, f"Expected 3 words, got {len(app.word_definitions)}"
-    assert 'test1' in app.word_definitions, "Missing test1"
-    assert app.word_definitions['test1'] == 'definition1', "Wrong definition for test1"
-    
-    print(f"✓ File format handled correctly (loaded {len(app.word_definitions)} words)")
-    
-    # Clean up
-    os.remove('/tmp/test_vocab.txt')
+    try:
+        app = QuizApp()
+        result = app.load_vocabulary_file(temp_path)
+        
+        assert result == True, "Failed to load test file"
+        assert len(app.word_definitions) == 3, f"Expected 3 words, got {len(app.word_definitions)}"
+        assert 'test1' in app.word_definitions, "Missing test1"
+        assert app.word_definitions['test1'] == 'definition1', "Wrong definition for test1"
+        
+        print(f"✓ File format handled correctly (loaded {len(app.word_definitions)} words)")
+    finally:
+        # Clean up
+        os.remove(temp_path)
 
 def main():
     """Run all tests."""
