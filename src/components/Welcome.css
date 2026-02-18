@@ -1,0 +1,96 @@
+.welcome {
+  min-height: 100vh;
+  padding-top: 2rem;
+}
+
+.welcome-box {
+  text-align: center;
+}
+
+.welcome-box h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.file-input-wrapper {
+  margin: 2rem 0;
+}
+
+.file-input-wrapper input[type="file"] {
+  display: none;
+}
+
+.file-label {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 500;
+}
+
+.file-label:hover {
+  background-color: var(--color-grey-dark);
+  transform: translateY(-1px);
+}
+
+.or-divider {
+  margin: 2rem 0;
+  position: relative;
+  text-align: center;
+}
+
+.or-divider::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background-color: var(--color-grey-light);
+}
+
+.or-divider::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background-color: var(--color-grey-light);
+}
+
+.or-divider span {
+  color: var(--color-grey);
+  background-color: var(--color-white);
+  padding: 0 1rem;
+}
+
+.error-message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #fff5f5;
+  border: 1px solid var(--color-grey-light);
+  border-radius: var(--border-radius);
+}
+
+.info-box {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+}
+
+.code-example {
+  background-color: var(--color-white);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-grey-light);
+  font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  margin: 1rem 0;
+}

@@ -3,7 +3,13 @@ Streamlined flashcard app built for fast review and long-term retention.
 
 ## 🚀 Quick Access
 
-**Run `python3 quiz_app.py` in your terminal to start the quiz application.**
+**Run `npm run dev` in your terminal to start the React application.**
+
+## Technology Stack
+
+- **React 18** - Modern React with hooks
+- **Vite** - Fast build tool and dev server
+- **Vanilla CSS** - Apple-inspired minimal design
 
 ## Design Philosophy
 
@@ -24,35 +30,52 @@ StudyPOD features an **Apple-inspired minimal design** with a clean black, white
 
 ## Installation
 
-No installation required! Just make sure you have Python 3.6+ installed.
+### Prerequisites
+
+- Node.js 18+ and npm
+
+### Setup
+
+1. Clone the repository
+2. Install dependencies:
 
 ```bash
-python3 --version
+npm install
 ```
 
 ## Usage
 
-### Quick Start
+### Development Mode
 
-Run the quiz app in interactive mode:
-
-```bash
-python3 quiz_app.py
-```
-
-The app will guide you through:
-1. Selecting a vocabulary file
-2. Choosing quiz mode (word→definition or definition→word)
-3. Setting the number of questions
-4. Taking the quiz with instant feedback
-
-### Command-Line Mode
-
-You can also provide a vocabulary file directly:
+Run the app in development mode with hot reload:
 
 ```bash
-python3 quiz_app.py example_vocabulary.txt
+npm run dev
 ```
+
+The app will open automatically in your browser at `http://localhost:3000`
+
+### Production Build
+
+Build the app for production:
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+## How to Use
+
+1. **Load Vocabulary**: Upload a .txt file or use the example vocabulary
+2. **Choose Mode**: Select Word→Definition or Definition→Word
+3. **Set Questions**: Choose how many questions to answer
+4. **Take Quiz**: Answer multiple-choice questions with instant feedback
+5. **Review Results**: See your score, time, and review missed items
 
 ### Creating Your Own Vocabulary Files
 
