@@ -247,6 +247,24 @@ class QuizApp:
             print("\n📚 Good effort! Review the missed items.")
         else:
             print("\n💪 Keep studying! Practice makes perfect.")
+    
+    def ask_num_questions(self):
+        """Ask user how many questions they want to answer."""
+        max_q = len(self.word_definitions)
+        while True:
+            num_input = input(f"\nHow many questions? (1-{max_q}, or press Enter for all): ").strip()
+            
+            if not num_input:
+                return max_q
+            
+            try:
+                num_questions = int(num_input)
+                if 1 <= num_questions <= max_q:
+                    return num_questions
+                else:
+                    print(f"Please enter a number between 1 and {max_q}")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
             
     def interactive_mode(self):
         """Run the app in interactive mode."""
@@ -268,22 +286,7 @@ class QuizApp:
         self.choose_quiz_mode()
         
         # Step 3: Ask how many questions
-        while True:
-            max_q = len(self.word_definitions)
-            num_input = input(f"\nHow many questions? (1-{max_q}, or press Enter for all): ").strip()
-            
-            if not num_input:
-                num_questions = max_q
-                break
-            
-            try:
-                num_questions = int(num_input)
-                if 1 <= num_questions <= max_q:
-                    break
-                else:
-                    print(f"Please enter a number between 1 and {max_q}")
-            except ValueError:
-                print("Invalid input. Please enter a number.")
+        num_questions = self.ask_num_questions()
                 
         # Step 4: Run the quiz
         self.run_quiz(num_questions)
@@ -293,25 +296,7 @@ class QuizApp:
             choice = input("\nWould you like to take another quiz? (y/n): ").strip().lower()
             if choice == 'y':
                 self.choose_quiz_mode()
-                
-                # Ask how many questions for the next quiz
-                while True:
-                    max_q = len(self.word_definitions)
-                    num_input = input(f"\nHow many questions? (1-{max_q}, or press Enter for all): ").strip()
-                    
-                    if not num_input:
-                        num_questions = max_q
-                        break
-                    
-                    try:
-                        num_questions = int(num_input)
-                        if 1 <= num_questions <= max_q:
-                            break
-                        else:
-                            print(f"Please enter a number between 1 and {max_q}")
-                    except ValueError:
-                        print("Invalid input. Please enter a number.")
-                
+                num_questions = self.ask_num_questions()
                 self.run_quiz(num_questions)
             elif choice == 'n':
                 print("\nThank you for using StudyPOD! Keep learning!")
