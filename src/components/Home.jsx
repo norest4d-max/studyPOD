@@ -1,9 +1,17 @@
 import './Home.css'
-import { A_PLUS_FILL_BLANK_SETS, A_PLUS_FULL_DECK, cardsToVocabulary, toWordWordTitle } from '../data/prebuiltFlashcards'
+import { A_PLUS_CERTIFICATION_DECK, A_PLUS_FILL_BLANK_SETS, A_PLUS_FULL_DECK, cardsToVocabulary, toWordWordTitle } from '../data/prebuiltFlashcards'
 
 function Home({ onStartQuiz }) {
   const totalSets = A_PLUS_FILL_BLANK_SETS.length
   const totalCards = A_PLUS_FULL_DECK.cards.length
+  const certificationDeckCards = A_PLUS_CERTIFICATION_DECK.cards.length
+
+  const handleLaunchCertificationDeck = () => {
+    onStartQuiz({
+      vocabulary: cardsToVocabulary(A_PLUS_CERTIFICATION_DECK.cards),
+      deckTitle: `${toWordWordTitle(A_PLUS_CERTIFICATION_DECK.title)} • ${A_PLUS_CERTIFICATION_DECK.title} (${certificationDeckCards} cards)`
+    })
+  }
 
   const handleLaunchFullDeck = () => {
     onStartQuiz({
@@ -67,6 +75,15 @@ function Home({ onStartQuiz }) {
           <p className="prebuilt-subtitle">
             CompTIA A+ certification themed fill-in-the-blank decks (Core 1 + Core 2 style). Choose the full 150-card game or launch by set.
           </p>
+
+          <div className="new-deck-callout">
+            <div className="new-deck-badge">NEW DECK</div>
+            <h3>{A_PLUS_CERTIFICATION_DECK.title}</h3>
+            <p>Focused rapid-review pack for high-yield Core 1/Core 2 exam patterns.</p>
+            <button onClick={handleLaunchCertificationDeck} className="feature-btn">
+              Launch New A+ Deck ({certificationDeckCards})
+            </button>
+          </div>
 
           <div className="prebuilt-cta">
             <button onClick={handleLaunchFullDeck} className="feature-btn">

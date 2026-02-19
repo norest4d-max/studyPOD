@@ -306,6 +306,24 @@ export const A_PLUS_FULL_DECK = {
   cards: A_PLUS_FILL_BLANK_SETS.flatMap((set) => set.cards)
 }
 
+export const A_PLUS_CERTIFICATION_DECK = {
+  title: 'A+ Certification Essentials Deck',
+  cards: [
+    { prompt: 'The ____ assigns IP addresses automatically.', answer: 'DHCP' },
+    { prompt: '____ translates domain names into IP addresses.', answer: 'DNS' },
+    { prompt: 'The minimum-permissions security model is called ____.', answer: 'least privilege' },
+    { prompt: 'A legacy firmware interface is ____.', answer: 'BIOS' },
+    { prompt: 'The modern firmware standard replacing BIOS is ____.', answer: 'UEFI' },
+    { prompt: 'A startup self-test sequence is ____.', answer: 'POST' },
+    { prompt: 'A malware type that encrypts files for payment is ____.', answer: 'ransomware' },
+    { prompt: 'A Windows crash stop screen is commonly called ____.', answer: 'BSOD' },
+    { prompt: 'A protective login method requiring 2+ factors is ____.', answer: 'MFA' },
+    { prompt: 'The router path out of a subnet is the default ____.', answer: 'gateway' },
+    { prompt: 'The network connector type for Ethernet patch cables is ____.', answer: 'RJ45' },
+    { prompt: 'Troubleshooting boot mode with minimal drivers is ____.', answer: 'Safe Mode' }
+  ]
+}
+
 export const cardsToVocabulary = (cards) => {
   return cards.reduce((accumulator, card, index) => {
     accumulator[`${index + 1}. ${card.prompt}`] = card.answer

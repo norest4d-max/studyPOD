@@ -131,6 +131,42 @@
   margin: 0 auto 1.6rem;
 }
 
+.new-deck-callout {
+  border: 1px solid var(--color-black);
+  border-radius: 18px;
+  padding: 1.15rem;
+  background: var(--color-white);
+  max-width: 760px;
+  margin: 0 auto 1.25rem;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.new-deck-badge {
+  width: fit-content;
+  background: var(--color-black);
+  color: var(--color-white);
+  border-radius: 999px;
+  padding: 0.18rem 0.62rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.new-deck-callout h3 {
+  margin: 0;
+  color: var(--color-black);
+  font-size: 1.15rem;
+}
+
+.new-deck-callout p {
+  margin: 0;
+  color: var(--color-black);
+  opacity: 0.8;
+}
+
 .set-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
