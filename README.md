@@ -215,10 +215,24 @@ Time: 3.45s
 
 ## Deployment
 
-This app is deployed on Netlify. To deploy your own:
+### Cloudflare Pages (Recommended)
+
+See **[CLOUDFLARE_PAGES_SIMPLE.md](CLOUDFLARE_PAGES_SIMPLE.md)** for the easiest deployment method!
+
+**Quick version:**
+1. Connect your GitHub repo to Cloudflare Pages
+2. Build command: `npm run build`
+3. Output directory: `dist`
+4. Deploy! 🚀
+
+### Netlify
+
+This app works great on Netlify too. See [NETLIFY_DEPLOY.md](NETLIFY_DEPLOY.md) for details.
+
+### Any Static Host
 
 1. Build the project: `npm run build`
-2. Deploy the `dist` folder to Netlify (or any static hosting)
+2. Deploy the `dist` folder to any static hosting
 3. The app will work immediately - no server configuration needed!
 
 ## License
