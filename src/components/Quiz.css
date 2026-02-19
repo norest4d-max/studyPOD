@@ -1,0 +1,148 @@
+.quiz {
+  min-height: 100vh;
+  padding-top: 2rem;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 4px;
+  background-color: var(--color-grey-light);
+  border-radius: 2px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--color-black);
+  transition: width 0.3s ease;
+}
+
+.question-header {
+  text-align: center;
+}
+
+.question-content {
+  margin: 2rem 0;
+  padding: 2rem;
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+}
+
+.question-label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-grey-dark);
+}
+
+.question-text {
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+.options-label {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: var(--color-white);
+  border: 2px solid var(--color-grey-light);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: left;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.option:hover:not(:disabled) {
+  border-color: var(--color-grey);
+  transform: translateX(4px);
+}
+
+.option.selected {
+  border-color: var(--color-black);
+  background-color: var(--color-bg-secondary);
+}
+
+.option.correct {
+  border-color: #28a745;
+  background-color: #e8f5e9;
+}
+
+.option.incorrect {
+  border-color: #dc3545;
+  background-color: #ffebee;
+}
+
+.option:disabled {
+  cursor: not-allowed;
+}
+
+.option-number {
+  font-weight: 600;
+  color: var(--color-grey);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  min-width: 2rem;
+}
+
+.option.selected .option-number,
+.option.correct .option-number {
+  color: var(--color-black);
+}
+
+.option-text {
+  flex: 1;
+}
+
+.feedback {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+.feedback-correct,
+.feedback-incorrect {
+  margin-bottom: 1.5rem;
+}
+
+.feedback-correct .success,
+.feedback-incorrect .error {
+  font-size: 1.25rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.feedback p {
+  margin: 0.5rem 0;
+}
+
+.next-btn {
+  margin-top: 1rem;
+  min-width: 200px;
+}
+
+@media (max-width: 768px) {
+  .question-text {
+    font-size: 1.25rem;
+  }
+  
+  .option {
+    padding: 0.875rem 1rem;
+  }
+}

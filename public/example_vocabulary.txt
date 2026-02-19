@@ -1,0 +1,24 @@
+# Example Vocabulary File for StudyPOD
+# Format: word:definition
+# Lines starting with # are comments and will be ignored
+
+algorithm:A step-by-step procedure for solving a problem or completing a task
+variable:A named storage location that can hold different values during program execution
+function:A reusable block of code that performs a specific task
+loop:A programming construct that repeats a block of code multiple times
+array:A data structure that stores multiple values in a single variable
+string:A sequence of characters treated as a single data type
+integer:A whole number without a decimal point
+boolean:A data type that can only be true or false
+object:A collection of related data and functions bundled together
+class:A blueprint for creating objects with shared properties and methods
+method:A function that belongs to a class or object
+parameter:A variable used in a function definition to accept input values
+return:A statement that exits a function and optionally sends a value back
+conditional:A statement that executes code based on whether a condition is true or false
+syntax:The set of rules that defines the structure of valid code in a programming language
+debug:The process of finding and fixing errors in code
+compile:The process of translating source code into machine-readable instructions
+runtime:The period when a program is executing
+exception:An error that occurs during program execution
+recursion:A programming technique where a function calls itself

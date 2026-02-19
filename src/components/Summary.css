@@ -1,0 +1,96 @@
+.summary {
+  min-height: 100vh;
+  padding-top: 2rem;
+}
+
+.summary .box {
+  text-align: center;
+}
+
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.stat-card {
+  padding: 1.5rem;
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+}
+
+.stat-value {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+}
+
+.summary-message {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+}
+
+.summary-message p {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.summary-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.summary-actions button {
+  min-width: 200px;
+}
+
+.missed-items {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.missed-list {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.missed-item {
+  padding: 1rem;
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--color-black);
+}
+
+.missed-word {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.missed-details p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .summary-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .summary-actions {
+    flex-direction: column;
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+  }
+}

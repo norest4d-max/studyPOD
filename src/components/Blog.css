@@ -1,0 +1,171 @@
+.blog {
+  min-height: calc(100vh - 80px);
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  padding: 2rem 1rem;
+}
+
+.blog-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.blog-header h1 {
+  color: #1e3a8a;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-description {
+  color: #475569;
+  font-size: 1.1rem;
+}
+
+.coming-soon-card {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.coming-soon-card .icon {
+  font-size: 4rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.coming-soon-card h2 {
+  color: #1e3a8a;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.coming-soon-card > p {
+  color: #475569;
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.features-list li {
+  padding: 0.75rem 0;
+  padding-left: 2rem;
+  position: relative;
+  color: #475569;
+  font-size: 1.05rem;
+}
+
+.features-list li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #3b82f6;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.firebase-info {
+  background: #f0f9ff;
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+  border-left: 4px solid #3b82f6;
+}
+
+.firebase-info h3 {
+  color: #1e3a8a;
+  margin-bottom: 1rem;
+}
+
+.firebase-info p {
+  color: #475569;
+  margin-bottom: 1rem;
+}
+
+.firebase-info ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 1rem 0;
+}
+
+.firebase-info li {
+  padding: 0.5rem 0;
+  color: #475569;
+}
+
+.firebase-info li strong {
+  color: #1e3a8a;
+}
+
+.note {
+  background: #dbeafe;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-style: italic;
+  color: #1e40af;
+}
+
+.setup-guide {
+  background: #fef3c7;
+  padding: 2rem;
+  border-radius: 12px;
+  border-left: 4px solid #f59e0b;
+}
+
+.setup-guide h3 {
+  color: #92400e;
+  margin-bottom: 1rem;
+}
+
+.setup-guide p {
+  color: #78350f;
+  margin-bottom: 1rem;
+}
+
+.setup-guide ol {
+  color: #78350f;
+  line-height: 2;
+  padding-left: 1.5rem;
+}
+
+.setup-guide code {
+  background: #fff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #dc2626;
+}
+
+.help-text {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .blog-header h1 {
+    font-size: 2rem;
+  }
+
+  .coming-soon-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .firebase-info, .setup-guide {
+    padding: 1.5rem;
+  }
+}

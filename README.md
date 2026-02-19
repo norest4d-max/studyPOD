@@ -1,6 +1,86 @@
 # studyPOD
 Streamlined flashcard app built for fast review and long-term retention.
 
+## 🚨 CLOUDFLARE DEPLOYMENT ERROR?
+
+**Getting "package.json not found" error?** → **[START_HERE_DEPLOYMENT_FIX.md](./START_HERE_DEPLOYMENT_FIX.md)** 
+
+**Quick fix**: Cloudflare is deploying from `main` branch, but your React app is on `copilot/repair-and-continue-structure` branch. Solution: Change branch in Cloudflare dashboard (2 min) OR merge to main. **[Full guide here →](./START_HERE_DEPLOYMENT_FIX.md)**
+
+---
+
+## 🚀 Quick Start - Run Locally
+
+**New to this?** Check out [QUICK_START.md](QUICK_START.md) for detailed beginner-friendly instructions!
+
+**Quick version:**
+```bash
+npm install    # First time only
+npm run dev    # Start the app
+```
+
+Then open `http://localhost:3000` in your browser!
+
+## 🌐 Online Version
+
+The app is deployed on Netlify! Access it without installing anything.
+
+## ✨ New Features
+
+### 🏠 Home Page
+- Welcome screen with instructions
+- Feature previews
+- Complete guide for creating vocabulary files
+
+### 📚 Smart Quiz
+- **Adaptive Learning** - Focuses on words you find challenging
+- Tracks your performance
+- Randomized question order
+- Weighted selection favors difficult words
+
+### 🎮 Memory Pattern Game
+- Simon Says style game
+- 9 blue-shaded squares
+- Progressive difficulty
+- High score tracking
+
+### 💬 Community Hub (Coming Soon)
+- Firebase-powered
+- User authentication
+- Share progress and vocabulary sets
+- Reddit-style discussions
+
+## 📖 Documentation
+
+### 🔧 Fix Current Cloudflare Error
+- **[FIX_CLOUDFLARE_BRANCH_ERROR.md](FIX_CLOUDFLARE_BRANCH_ERROR.md)** - ⚠️ **START HERE** if getting "package.json not found" error
+- **[CLOUDFLARE_BRANCH_FIX_GUIDE.md](CLOUDFLARE_BRANCH_FIX_GUIDE.md)** - Step-by-step branch configuration fix
+
+### Deployment
+- **[DEPLOYMENT_SETTINGS.md](DEPLOYMENT_SETTINGS.md)** - ⭐ Quick reference: Copy/paste deployment settings
+- **[BUILD_VERIFICATION.md](BUILD_VERIFICATION.md)** - Verified build configuration details
+- **[CLOUDFLARE_PAGES_SIMPLE.md](CLOUDFLARE_PAGES_SIMPLE.md)** - Cloudflare Pages deployment guide
+- **[NETLIFY_DEPLOY.md](NETLIFY_DEPLOY.md)** - Netlify deployment guide
+
+### Features & Setup
+- **[FEATURES_GUIDE.md](FEATURES_GUIDE.md)** - Complete feature documentation with screenshots
+- **[FIREBASE_SETUP.md](FIREBASE_SETUP.md)** - Step-by-step Firebase integration guide
+- **[QUICK_START.md](QUICK_START.md)** - Local development guide
+
+## Technology Stack
+
+- **React 18** - Modern React with hooks
+- **Vite** - Fast build tool and dev server
+- **Vanilla CSS** - Apple-inspired minimal design
+
+## Design Philosophy
+
+StudyPOD features an **Apple-inspired minimal design** with a clean black, white, and grey aesthetic. The interface emphasizes clarity and focus through:
+- Premium typography and spacing
+- Minimal box drawing characters for structure
+- Muted, understated feedback
+- Distraction-free learning experience
+
 ## Features
 
 - **Load Custom Vocabulary**: Import word-definition pairs from .txt files
@@ -12,35 +92,52 @@ Streamlined flashcard app built for fast review and long-term retention.
 
 ## Installation
 
-No installation required! Just make sure you have Python 3.6+ installed.
+### Prerequisites
+
+- Node.js 18+ and npm
+
+### Setup
+
+1. Clone the repository
+2. Install dependencies:
 
 ```bash
-python3 --version
+npm install
 ```
 
 ## Usage
 
-### Quick Start
+### Development Mode
 
-Run the quiz app in interactive mode:
-
-```bash
-python3 quiz_app.py
-```
-
-The app will guide you through:
-1. Selecting a vocabulary file
-2. Choosing quiz mode (word→definition or definition→word)
-3. Setting the number of questions
-4. Taking the quiz with instant feedback
-
-### Command-Line Mode
-
-You can also provide a vocabulary file directly:
+Run the app in development mode with hot reload:
 
 ```bash
-python3 quiz_app.py example_vocabulary.txt
+npm run dev
 ```
+
+The app will open automatically in your browser at `http://localhost:3000`
+
+### Production Build
+
+Build the app for production:
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+## How to Use
+
+1. **Load Vocabulary**: Upload a .txt file or use the example vocabulary
+2. **Choose Mode**: Select Word→Definition or Definition→Word
+3. **Set Questions**: Choose how many questions to answer
+4. **Take Quiz**: Answer multiple-choice questions with instant feedback
+5. **Review Results**: See your score, time, and review missed items
 
 ### Creating Your Own Vocabulary Files
 
@@ -80,27 +177,30 @@ See `example_vocabulary.txt` for a complete example.
 ## Example Session
 
 ```
-StudyPOD - Vocabulary Quiz Application
-============================================================
+┌──────────────────────────────────────────────────────────┐
+│   StudyPOD                                              │
+│ Vocabulary Quiz Application                             │
+└──────────────────────────────────────────────────────────┘
 
-Enter the path to your vocabulary file (.txt): example_vocabulary.txt
-Successfully loaded 20 word-definition pairs
+Enter vocabulary file path (.txt): example_vocabulary.txt
+✓ Loaded 20 word-definition pairs
 
-Choose quiz mode:
-1. Word -> Definition (given a word, choose the correct definition)
-2. Definition -> Word (given a definition, choose the correct word)
+Choose quiz mode
+  1. Word → Definition  (given a word, choose the correct definition)
+  2. Definition → Word  (given a definition, choose the correct word)
 
 Enter 1 or 2: 1
-Quiz mode: Word to Definition
+Quiz mode: Word → Definition
 
 How many questions? (1-20, or press Enter for all): 5
 
-============================================================
-Starting Quiz: 5 questions
-============================================================
+┌──────────────────────────────────────────────────────────┐
+│ Starting Quiz: 5 questions                               │
+└──────────────────────────────────────────────────────────┘
 
-Question 1/5
-============================================================
+────────────────────────────────────────────────────────────
+  Question 1 of 5  
+────────────────────────────────────────────────────────────
 
 Word: algorithm
 
@@ -113,9 +213,9 @@ Choose the correct definition:
 
 Your answer (1-4): 2
 
-✓ CORRECT!
+✓ CORRECT
 You know the word: 'algorithm'
-Time taken: 3.45 seconds
+Time: 3.45s
 ```
 
 ## Tips for Effective Learning
@@ -128,8 +228,39 @@ Time taken: 3.45 seconds
 
 ## Requirements
 
-- Python 3.6 or higher
-- No external dependencies required
+- Node.js 18+ and npm
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+
+## Deployment
+
+### ✅ Verified Build Configuration
+
+**Framework**: React (Vite)  
+**Build command**: `npm run build`  
+**Output directory**: `dist`
+
+📋 **[DEPLOYMENT_SETTINGS.md](DEPLOYMENT_SETTINGS.md)** - Quick reference card with copy/paste settings  
+📖 **[BUILD_VERIFICATION.md](BUILD_VERIFICATION.md)** - Complete build configuration verification
+
+### Cloudflare Pages (Recommended)
+
+See **[CLOUDFLARE_PAGES_SIMPLE.md](CLOUDFLARE_PAGES_SIMPLE.md)** for the easiest deployment method!
+
+**Quick version:**
+1. Connect your GitHub repo to Cloudflare Pages
+2. Build command: `npm run build`
+3. Output directory: `dist`
+4. Deploy! 🚀
+
+### Netlify
+
+This app works great on Netlify too. See [NETLIFY_DEPLOY.md](NETLIFY_DEPLOY.md) for details.
+
+### Any Static Host
+
+1. Build the project: `npm run build`
+2. Deploy the `dist` folder to any static hosting
+3. The app will work immediately - no server configuration needed!
 
 ## License
 

@@ -5,9 +5,92 @@ A flashcard quiz app that tests vocabulary with multiple-choice questions.
 """
 
 import random
+import re
 import time
 import sys
 from pathlib import Path
+
+
+class Theme:
+    """Apple-inspired minimal design theme with black, white, and grey."""
+    
+    # ANSI color codes for terminal styling
+    RESET = '\033[0m'
+    BOLD = '\033[1m'
+    DIM = '\033[2m'
+    
+    # Apple-inspired color palette: black, white (default), grey
+    BLACK = '\033[30m'
+    GREY = '\033[90m'  # Bright black (grey)
+    WHITE = '\033[97m'  # Bright white
+    
+    # Background colors
+    BG_BLACK = '\033[40m'
+    BG_WHITE = '\033[107m'
+    BG_GREY = '\033[100m'
+    
+    # Design constants
+    BOX_BORDER_WIDTH = 4  # Width of box borders and spacing ('│ ' + ' │')
+    SEPARATOR = '•'  # Separator character for lists
+    
+    @staticmethod
+    def strip_ansi(text):
+        """Remove ANSI escape codes from text for length calculation."""
+        ansi_escape = re.compile(r'\033\[[0-9;]*m')
+        return ansi_escape.sub('', text)
+    
+    @staticmethod
+    def header(text):
+        """Premium header style - bold white on black."""
+        return f"{Theme.BG_BLACK}{Theme.WHITE}{Theme.BOLD} {text} {Theme.RESET}"
+    
+    @staticmethod
+    def subheader(text):
+        """Subheader style - grey, understated."""
+        return f"{Theme.GREY}{text}{Theme.RESET}"
+    
+    @staticmethod
+    def emphasis(text):
+        """Emphasis style - bold white."""
+        return f"{Theme.BOLD}{Theme.WHITE}{text}{Theme.RESET}"
+    
+    @staticmethod
+    def muted(text):
+        """Muted text - dim grey."""
+        return f"{Theme.DIM}{Theme.GREY}{text}{Theme.RESET}"
+    
+    @staticmethod
+    def divider(width=60):
+        """Minimal divider line - grey."""
+        return f"{Theme.GREY}{'─' * width}{Theme.RESET}"
+    
+    @staticmethod
+    def box_top(width=60):
+        """Top of a minimal box."""
+        return f"{Theme.GREY}┌{'─' * (width-2)}┐{Theme.RESET}"
+    
+    @staticmethod
+    def box_bottom(width=60):
+        """Bottom of a minimal box."""
+        return f"{Theme.GREY}└{'─' * (width-2)}┘{Theme.RESET}"
+    
+    @staticmethod
+    def box_line(text, width=60):
+        """Line inside a box with padding."""
+        # Strip ANSI codes to get actual display length
+        display_length = len(Theme.strip_ansi(text))
+        padding = width - display_length - Theme.BOX_BORDER_WIDTH
+        return f"{Theme.GREY}│ {Theme.RESET}{text}{' ' * padding}{Theme.GREY} │{Theme.RESET}"
+    
+    @staticmethod
+    def success(text):
+        """Success message - bold white."""
+        return f"{Theme.BOLD}{Theme.WHITE}✓ {text}{Theme.RESET}"
+    
+    @staticmethod
+    def error(text):
+        """Error message - white with X mark."""
+        return f"{Theme.WHITE}✗ {text}{Theme.RESET}"
 
 
 class QuizApp:
@@ -49,7 +132,7 @@ class QuizApp:
                 return False
                 
             self.current_file = filepath
-            print(f"Successfully loaded {len(self.word_definitions)} word-definition pairs")
+            print(Theme.success(f"Loaded {len(self.word_definitions)} word-definition pairs"))
             return True
             
         except FileNotFoundError:
@@ -61,22 +144,23 @@ class QuizApp:
             
     def choose_quiz_mode(self):
         """Let user choose quiz direction."""
-        print("\nChoose quiz mode:")
-        print("1. Word -> Definition (given a word, choose the correct definition)")
-        print("2. Definition -> Word (given a definition, choose the correct word)")
+        print()
+        print(Theme.subheader("Choose quiz mode"))
+        print(Theme.muted("1. Word → Definition  (given a word, choose the correct definition)"))
+        print(Theme.muted("2. Definition → Word  (given a definition, choose the correct word)"))
         
         while True:
-            choice = input("\nEnter 1 or 2: ").strip()
+            choice = input(f"\n{Theme.GREY}Enter 1 or 2:{Theme.RESET} ").strip()
             if choice == '1':
                 self.quiz_mode = 'word_to_def'
-                print("Quiz mode: Word to Definition")
+                print(Theme.emphasis("Quiz mode: Word → Definition"))
                 return True
             elif choice == '2':
                 self.quiz_mode = 'def_to_word'
-                print("Quiz mode: Definition to Word")
+                print(Theme.emphasis("Quiz mode: Definition → Word"))
                 return True
             else:
-                print("Invalid choice. Please enter 1 or 2.")
+                print(Theme.error("Invalid choice. Please enter 1 or 2."))
                 
     def generate_wrong_answers(self, correct_answer, all_options):
         """Generate 3 wrong answers for multiple choice."""
@@ -130,20 +214,21 @@ class QuizApp:
         
     def display_question(self, question_data, question_num, total_questions):
         """Display a quiz question with options."""
-        print(f"\n{'='*60}")
-        print(f"Question {question_num}/{total_questions}")
-        print('='*60)
+        print()
+        print(Theme.divider())
+        print(Theme.header(f"  Question {question_num} of {total_questions}  "))
+        print(Theme.divider())
         
         if self.quiz_mode == 'word_to_def':
-            print(f"\nWord: {question_data['question']}")
-            print("\nChoose the correct definition:")
+            print(f"\n{Theme.BOLD}Word:{Theme.RESET} {Theme.emphasis(question_data['question'])}")
+            print(Theme.muted("\nChoose the correct definition:"))
         else:
-            print(f"\nDefinition: {question_data['question']}")
-            print("\nChoose the correct word:")
+            print(f"\n{Theme.BOLD}Definition:{Theme.RESET} {Theme.emphasis(question_data['question'])}")
+            print(Theme.muted("\nChoose the correct word:"))
             
         print()
         for i, option in enumerate(question_data['options'], 1):
-            print(f"{i}. {option}")
+            print(f"{Theme.GREY}{i}.{Theme.RESET} {option}")
             
     def ask_question(self, question_data, question_num, total_questions):
         """Ask a single question and get user's answer."""
@@ -153,14 +238,14 @@ class QuizApp:
         
         while True:
             try:
-                answer = input("\nYour answer (1-4): ").strip()
+                answer = input(f"\n{Theme.GREY}Your answer (1-4):{Theme.RESET} ").strip()
                 if answer in ['1', '2', '3', '4']:
                     answer_num = int(answer)
                     break
                 else:
-                    print("Please enter a number between 1 and 4")
+                    print(Theme.muted("Please enter a number between 1 and 4"))
             except KeyboardInterrupt:
-                print("\n\nQuiz interrupted by user.")
+                print(f"\n\n{Theme.muted('Quiz interrupted by user.')}")
                 sys.exit(0)
                 
         end_time = time.time()
@@ -179,35 +264,36 @@ class QuizApp:
         """Provide feedback on the answer."""
         print()
         if result['is_correct']:
-            print("✓ CORRECT!")
+            print(Theme.success("CORRECT"))
             knowledge_type = "word" if self.quiz_mode == 'word_to_def' else "definition"
-            print(f"You know the {knowledge_type}: '{question_data['word']}'")
+            print(Theme.muted(f"You know the {knowledge_type}: '{question_data['word']}'"))
         else:
-            print("✗ INCORRECT")
-            print(f"Your answer: {result['user_answer']}")
-            print(f"Correct answer: {result['correct_answer']}")
+            print(Theme.error("INCORRECT"))
+            print(f"{Theme.muted('Your answer:')} {result['user_answer']}")
+            print(f"{Theme.muted('Correct answer:')} {Theme.emphasis(result['correct_answer'])}")
             knowledge_type = "word" if self.quiz_mode == 'word_to_def' else "definition"
-            print(f"You need to review the {knowledge_type}: '{question_data['word']}'")
+            print(Theme.muted(f"Review the {knowledge_type}: '{question_data['word']}'"))
             
-        print(f"Time taken: {result['time_taken']:.2f} seconds")
+        print(Theme.muted(f"Time: {result['time_taken']:.2f}s"))
         
     def run_quiz(self, num_questions=None):
         """Run the main quiz."""
         if not self.word_definitions:
-            print("Error: No vocabulary loaded. Please load a file first.")
+            print(Theme.error("No vocabulary loaded. Please load a file first."))
             return
             
         if not self.quiz_mode:
-            print("Error: Quiz mode not set. Please choose a mode first.")
+            print(Theme.error("Quiz mode not set. Please choose a mode first."))
             return
             
         max_questions = len(self.word_definitions)
         if num_questions is None or num_questions > max_questions:
             num_questions = max_questions
             
-        print(f"\n{'='*60}")
-        print(f"Starting Quiz: {num_questions} questions")
-        print('='*60)
+        print()
+        print(Theme.box_top())
+        print(Theme.box_line(f"Starting Quiz: {num_questions} questions"))
+        print(Theme.box_bottom())
         
         results = []
         total_time = 0
@@ -221,7 +307,7 @@ class QuizApp:
             total_time += result['time_taken']
             
             if i < num_questions - 1:
-                input("\nPress Enter to continue...")
+                input(f"\n{Theme.muted('Press Enter to continue...')}")
                 
         self.show_summary(results, total_time)
         
@@ -232,33 +318,54 @@ class QuizApp:
         percentage = (correct_count / total_count * 100) if total_count > 0 else 0
         avg_time = total_time / total_count if total_count > 0 else 0
         
-        print(f"\n{'='*60}")
-        print("QUIZ SUMMARY")
-        print('='*60)
-        print(f"Correct answers: {correct_count}/{total_count} ({percentage:.1f}%)")
-        print(f"Total time: {total_time:.2f} seconds")
-        print(f"Average time per question: {avg_time:.2f} seconds")
+        print()
+        print(Theme.box_top())
+        print(Theme.box_line(Theme.header("  SUMMARY  ")))
+        print(Theme.box_line(""))
+        print(Theme.box_line(f"{Theme.emphasis(f'{correct_count}/{total_count}')} correct ({percentage:.1f}%)"))
+        print(Theme.box_line(Theme.muted(f"Total time: {total_time:.1f}s  {Theme.SEPARATOR}  Avg: {avg_time:.1f}s")))
+        print(Theme.box_bottom())
         
         if percentage == 100:
-            print("\n🎉 Perfect score! You know all the vocabulary!")
+            print(f"\n{Theme.emphasis('Perfect score! You know all the vocabulary.')}")
         elif percentage >= 80:
-            print("\n👍 Great job! Keep practicing!")
+            print(f"\n{Theme.emphasis('Great job! Keep practicing.')}")
         elif percentage >= 60:
-            print("\n📚 Good effort! Review the missed items.")
+            print(f"\n{Theme.muted('Good effort. Review the missed items.')}")
         else:
-            print("\n💪 Keep studying! Practice makes perfect.")
+            print(f"\n{Theme.muted('Keep studying. Practice makes perfect.')}")
+    
+    def ask_num_questions(self):
+        """Ask user how many questions they want to answer."""
+        max_q = len(self.word_definitions)
+        while True:
+            num_input = input(f"\n{Theme.GREY}How many questions? (1-{max_q}, or press Enter for all):{Theme.RESET} ").strip()
+            
+            if not num_input:
+                return max_q
+            
+            try:
+                num_questions = int(num_input)
+                if 1 <= num_questions <= max_q:
+                    return num_questions
+                else:
+                    print(Theme.muted(f"Please enter a number between 1 and {max_q}"))
+            except ValueError:
+                print(Theme.muted("Invalid input. Please enter a number."))
             
     def interactive_mode(self):
         """Run the app in interactive mode."""
-        print("="*60)
-        print("StudyPOD - Vocabulary Quiz Application")
-        print("="*60)
+        print()
+        print(Theme.box_top())
+        print(Theme.box_line(Theme.header("  StudyPOD  ")))
+        print(Theme.box_line(Theme.muted("Vocabulary Quiz Application")))
+        print(Theme.box_bottom())
         
         # Step 1: Load file
         while True:
-            filepath = input("\nEnter the path to your vocabulary file (.txt): ").strip()
+            filepath = input(f"\n{Theme.GREY}Enter vocabulary file path (.txt):{Theme.RESET} ").strip()
             if filepath.lower() in ['quit', 'exit']:
-                print("Goodbye!")
+                print(Theme.muted("\nGoodbye!"))
                 return
                 
             if self.load_vocabulary_file(filepath):
@@ -268,53 +375,21 @@ class QuizApp:
         self.choose_quiz_mode()
         
         # Step 3: Ask how many questions
-        while True:
-            max_q = len(self.word_definitions)
-            num_input = input(f"\nHow many questions? (1-{max_q}, or press Enter for all): ").strip()
-            
-            if not num_input:
-                num_questions = max_q
-                break
-            
-            try:
-                num_questions = int(num_input)
-                if 1 <= num_questions <= max_q:
-                    break
-                else:
-                    print(f"Please enter a number between 1 and {max_q}")
-            except ValueError:
-                print("Invalid input. Please enter a number.")
+        num_questions = self.ask_num_questions()
                 
         # Step 4: Run the quiz
         self.run_quiz(num_questions)
         
         # Step 5: Ask if user wants to continue
         while True:
-            choice = input("\nWould you like to take another quiz? (y/n): ").strip().lower()
+            choice = input(f"\n{Theme.GREY}Take another quiz? (y/n):{Theme.RESET} ").strip().lower()
             if choice == 'y':
                 self.choose_quiz_mode()
-                
-                # Ask how many questions for the next quiz
-                while True:
-                    max_q = len(self.word_definitions)
-                    num_input = input(f"\nHow many questions? (1-{max_q}, or press Enter for all): ").strip()
-                    
-                    if not num_input:
-                        num_questions = max_q
-                        break
-                    
-                    try:
-                        num_questions = int(num_input)
-                        if 1 <= num_questions <= max_q:
-                            break
-                        else:
-                            print(f"Please enter a number between 1 and {max_q}")
-                    except ValueError:
-                        print("Invalid input. Please enter a number.")
-                
+                num_questions = self.ask_num_questions()
                 self.run_quiz(num_questions)
             elif choice == 'n':
-                print("\nThank you for using StudyPOD! Keep learning!")
+                print(f"\n{Theme.emphasis('Thank you for using StudyPOD!')}")
+                print(Theme.muted("Keep learning.\n"))
                 break
 
 
