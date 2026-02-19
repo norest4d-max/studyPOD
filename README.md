@@ -1,9 +1,21 @@
 # studyPOD
 Streamlined flashcard app built for fast review and long-term retention.
 
-## 🚀 Quick Access
+## 🚀 Quick Start - Run Locally
 
-**Run `npm run dev` in your terminal to start the React application.**
+**New to this?** Check out [QUICK_START.md](QUICK_START.md) for detailed beginner-friendly instructions!
+
+**Quick version:**
+```bash
+npm install    # First time only
+npm run dev    # Start the app
+```
+
+Then open `http://localhost:3000` in your browser!
+
+## 🌐 Online Version
+
+The app is also deployed on Netlify! You can access it without installing anything.
 
 ## Technology Stack
 
@@ -166,8 +178,16 @@ Time: 3.45s
 
 ## Requirements
 
-- Python 3.6 or higher
-- No external dependencies required
+- Node.js 18+ and npm
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+
+## Deployment
+
+This app is deployed on Netlify. To deploy your own:
+
+1. Build the project: `npm run build`
+2. Deploy the `dist` folder to Netlify (or any static hosting)
+3. The app will work immediately - no server configuration needed!
 
 ## License
 
