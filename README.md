@@ -52,6 +52,10 @@ The app is deployed on Netlify! Access it without installing anything.
 
 ## 📖 Documentation
 
+### 🐛 Debug Cloning Issues
+- **[DEBUG_CLONING_ISSUES_ANALYSIS.md](DEBUG_CLONING_ISSUES_ANALYSIS.md)** - 📊 **Comprehensive analysis** of repository cloning issues during deployment
+- **[URZ_QUICK_REFERENCE.md](URZ_QUICK_REFERENCE.md)** - ⚡ **Quick troubleshooting guide** using URZ methodology (Understand, Resolve, Zero-in)
+
 ### 🔧 Fix Current Cloudflare Error
 - **[FIX_CLOUDFLARE_BRANCH_ERROR.md](FIX_CLOUDFLARE_BRANCH_ERROR.md)** - ⚠️ **START HERE** if getting "package.json not found" error
 - **[CLOUDFLARE_BRANCH_FIX_GUIDE.md](CLOUDFLARE_BRANCH_FIX_GUIDE.md)** - Step-by-step branch configuration fix
