@@ -1,0 +1,4 @@
+.quiz-app-wrapper {
+  min-height: calc(100vh - 80px);
+  background: var(--color-bg);
+}

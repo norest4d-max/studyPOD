@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Quiz.css'
 
-function Quiz({ vocabulary, quizMode, numQuestions, onComplete }) {
+function Quiz({ vocabulary, quizMode, numQuestions, onComplete, performanceData = {} }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [questions, setQuestions] = useState([])
   const [selectedAnswer, setSelectedAnswer] = useState(null)
@@ -13,12 +13,51 @@ function Quiz({ vocabulary, quizMode, numQuestions, onComplete }) {
     generateQuestions()
   }, [])
 
+  const getWordDifficulty = (word) => {
+    // Calculate difficulty score based on performance
+    const perf = performanceData[word]
+    if (!perf || perf.attempts === 0) return 0.5 // neutral for new words
+    
+    const errorRate = perf.incorrect / perf.attempts
+    return errorRate // 0 = easy, 1 = hard
+  }
+
+  const selectWordsWithWeighting = (words, count) => {
+    // Weight words by difficulty - harder words more likely to appear
+    const weightedWords = words.map(word => ({
+      word,
+      weight: 1 + (getWordDifficulty(word) * 3) // Hard words 4x more likely
+    }))
+
+    const selected = []
+    const remaining = [...weightedWords]
+
+    for (let i = 0; i < Math.min(count, words.length); i++) {
+      const totalWeight = remaining.reduce((sum, item) => sum + item.weight, 0)
+      let random = Math.random() * totalWeight
+      
+      for (let j = 0; j < remaining.length; j++) {
+        random -= remaining[j].weight
+        if (random <= 0) {
+          selected.push(remaining[j].word)
+          remaining.splice(j, 1)
+          break
+        }
+      }
+    }
+
+    return selected
+  }
+
   const generateQuestions = () => {
     const words = Object.keys(vocabulary)
-    const shuffled = [...words].sort(() => Math.random() - 0.5)
-    const selected = shuffled.slice(0, numQuestions)
     
-    const generatedQuestions = selected.map(word => {
+    // Use adaptive selection if performance data exists
+    const selectedWords = Object.keys(performanceData).length > 0
+      ? selectWordsWithWeighting(words, numQuestions)
+      : words.sort(() => Math.random() - 0.5).slice(0, numQuestions)
+    
+    const generatedQuestions = selectedWords.map(word => {
       const correctDefinition = vocabulary[word]
       
       if (quizMode === 'word_to_def') {

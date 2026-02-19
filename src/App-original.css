@@ -1,0 +1,23 @@
+.app {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+}
+
+.app-header {
+  text-align: center;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--color-grey-light);
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.app-header h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.app-header .subtitle {
+  color: var(--color-grey-light);
+  font-size: 1rem;
+}
