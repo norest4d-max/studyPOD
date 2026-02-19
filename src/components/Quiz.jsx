@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './Quiz.css'
+import { getCatalogAppearanceBit, getFillBlankSpinBit, getSatireConfidenceBit } from '../data/satireBits'
 
 function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, performanceData = {} }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
@@ -8,6 +9,9 @@ function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, perfo
   const [showFeedback, setShowFeedback] = useState(false)
   const [results, setResults] = useState([])
   const [startTime, setStartTime] = useState(null)
+  const [satireConfidence, setSatireConfidence] = useState('')
+  const [catalogAppearance, setCatalogAppearance] = useState('')
+  const [fillBlankSpin, setFillBlankSpin] = useState('')
 
   useEffect(() => {
     generateQuestions()
@@ -100,6 +104,10 @@ function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, perfo
     const timeTaken = (endTime - startTime) / 1000
     
     const isCorrect = answer === questions[currentQuestion].correctAnswer
+    setSatireConfidence(getSatireConfidenceBit(isCorrect))
+    setCatalogAppearance(getCatalogAppearanceBit())
+    setFillBlankSpin(getFillBlankSpinBit())
+
     const result = {
       isCorrect,
       timeTaken,
@@ -116,6 +124,9 @@ function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, perfo
       setCurrentQuestion(currentQuestion + 1)
       setSelectedAnswer(null)
       setShowFeedback(false)
+      setSatireConfidence('')
+      setCatalogAppearance('')
+      setFillBlankSpin('')
       setStartTime(Date.now())
     } else {
       // Quiz is complete, pass all results
@@ -195,6 +206,12 @@ function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, perfo
                   </p>
                 </div>
               )}
+
+              <div className="satire-info-box">
+                <p className="satire-line">{satireConfidence}</p>
+                <p className="catalog-line">A+ catalog appearance: {catalogAppearance}</p>
+                <p className="catalog-line">{fillBlankSpin}</p>
+              </div>
               
               <button onClick={handleNext} className="next-btn">
                 {currentQuestion < questions.length - 1 ? 'Next Question' : 'View Summary'}

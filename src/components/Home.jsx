@@ -1,5 +1,5 @@
 import './Home.css'
-import { A_PLUS_FILL_BLANK_SETS, A_PLUS_FULL_DECK, cardsToVocabulary } from '../data/prebuiltFlashcards'
+import { A_PLUS_FILL_BLANK_SETS, A_PLUS_FULL_DECK, cardsToVocabulary, toWordWordTitle } from '../data/prebuiltFlashcards'
 
 function Home({ onStartQuiz }) {
   const totalSets = A_PLUS_FILL_BLANK_SETS.length
@@ -8,14 +8,14 @@ function Home({ onStartQuiz }) {
   const handleLaunchFullDeck = () => {
     onStartQuiz({
       vocabulary: cardsToVocabulary(A_PLUS_FULL_DECK.cards),
-      deckTitle: `${A_PLUS_FULL_DECK.title} (${totalCards} cards)`
+      deckTitle: `${toWordWordTitle(A_PLUS_FULL_DECK.title)} • ${A_PLUS_FULL_DECK.title} (${totalCards} cards)`
     })
   }
 
   const handleLaunchSet = (setData) => {
     onStartQuiz({
       vocabulary: cardsToVocabulary(setData.cards),
-      deckTitle: `Set ${setData.id}: ${setData.title} (${setData.cards.length} cards)`
+      deckTitle: `${toWordWordTitle(setData.title)} • Set ${setData.id}: ${setData.title} (${setData.cards.length} cards)`
     })
   }
 
@@ -65,7 +65,7 @@ function Home({ onStartQuiz }) {
         <div className="prebuilt-section">
           <h2>Prebuilt Flashcards</h2>
           <p className="prebuilt-subtitle">
-            CompTIA-style A+ fill-in-the-blank deck packs. Choose the full 150-card game or launch by set.
+            CompTIA A+ certification themed fill-in-the-blank decks (Core 1 + Core 2 style). Choose the full 150-card game or launch by set.
           </p>
 
           <div className="prebuilt-cta">
@@ -78,6 +78,7 @@ function Home({ onStartQuiz }) {
             {A_PLUS_FILL_BLANK_SETS.map((setData) => (
               <div className="set-card" key={setData.id}>
                 <div className="set-meta">Set {setData.id}</div>
+                <div className="set-word-title">{toWordWordTitle(setData.title)}</div>
                 <h3>{setData.title}</h3>
                 <p>{setData.cards[0].prompt}</p>
                 <button onClick={() => handleLaunchSet(setData)} className="feature-btn secondary-action">

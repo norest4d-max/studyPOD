@@ -302,7 +302,7 @@ export const A_PLUS_FILL_BLANK_SETS = [
 ]
 
 export const A_PLUS_FULL_DECK = {
-  title: 'CompTIA A+ Fill-in-the-Blank Mega Deck',
+  title: 'CompTIA A+ Certification Fill-in-the-Blank Mega Deck',
   cards: A_PLUS_FILL_BLANK_SETS.flatMap((set) => set.cards)
 }
 
@@ -312,3 +312,16 @@ export const cardsToVocabulary = (cards) => {
     return accumulator
   }, {})
 }
+
+export const toWordWordTitle = (text) => {
+  const words = String(text)
+    .replace(/[^a-zA-Z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .filter(Boolean)
+
+  if (words.length === 0) return 'Deck Mode'
+  if (words.length === 1) return `${capitalize(words[0])} Mode`
+  return `${capitalize(words[0])} ${capitalize(words[1])}`
+}
+
+const capitalize = (value) => value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()

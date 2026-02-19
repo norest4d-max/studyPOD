@@ -154,6 +154,18 @@
   text-transform: uppercase;
 }
 
+.set-word-title {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: var(--color-black);
+  color: var(--color-white);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
 .set-card h3 {
   margin: 0;
   color: var(--color-black);
