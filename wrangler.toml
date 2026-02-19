@@ -5,14 +5,10 @@ compatibility_date = "2026-02-19"
 # For Cloudflare Pages static site deployment
 pages_build_output_dir = "dist"
 
-# Build configuration
+# Build configuration - Cloudflare will run this
 [build]
-command = "npm run build"
+command = "npm install && npm run build"
 
 # Environment variables (if needed in the future)
 [vars]
 # Add any environment variables here
-
-# Asset configuration for static site
-[site]
-bucket = "./dist"
