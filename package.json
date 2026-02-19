@@ -9,6 +9,7 @@
     "build:decks:a-plus": "node scripts/generate_a_plus_decks.mjs",
     "preview": "vite preview",
     "test": "jest",
+    "verify": "bash verify-build.sh",
     "deploy": "npm run build && wrangler pages deploy dist"
   },
   "dependencies": {
