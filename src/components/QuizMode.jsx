@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './QuizMode.css'
 
-function QuizMode({ vocabulary, onModeSelect }) {
+function QuizMode({ vocabulary, deckTitle, onModeSelect }) {
   const [selectedMode, setSelectedMode] = useState(null)
   const [numQuestions, setNumQuestions] = useState('')
   const maxQuestions = Object.keys(vocabulary).length
@@ -20,6 +20,7 @@ function QuizMode({ vocabulary, onModeSelect }) {
         <div className="box">
           <h1>StudyPOD</h1>
           <p className="success">✓ Loaded {maxQuestions} word-definition pairs</p>
+          {deckTitle && <p className="emphasis">Deck: {deckTitle}</p>}
           
           <div className="divider"></div>
           

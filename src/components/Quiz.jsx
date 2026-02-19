@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Quiz.css'
 
-function Quiz({ vocabulary, quizMode, numQuestions, onComplete, performanceData = {} }) {
+function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, performanceData = {} }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [questions, setQuestions] = useState([])
   const [selectedAnswer, setSelectedAnswer] = useState(null)
@@ -140,6 +140,7 @@ function Quiz({ vocabulary, quizMode, numQuestions, onComplete, performanceData 
         <div className="box">
           <div className="question-header">
             <h2>Question {currentQuestion + 1} of {questions.length}</h2>
+            {deckTitle && <p className="muted">{deckTitle}</p>}
           </div>
 
           <div className="divider"></div>

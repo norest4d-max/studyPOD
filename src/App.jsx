@@ -8,19 +8,37 @@ import Forum from './components/Forum'
 
 function App() {
   const [currentTab, setCurrentTab] = useState('home')
+  const [presetVocabulary, setPresetVocabulary] = useState(null)
+  const [presetDeckTitle, setPresetDeckTitle] = useState('')
+
+  const handleStartQuiz = (preset = null) => {
+    if (preset?.vocabulary) {
+      setPresetVocabulary(preset.vocabulary)
+      setPresetDeckTitle(preset.deckTitle || 'Prebuilt Flashcards')
+    } else {
+      setPresetVocabulary(null)
+      setPresetDeckTitle('')
+    }
+    setCurrentTab('quiz')
+  }
 
   const renderContent = () => {
     switch(currentTab) {
       case 'home':
-        return <Home onStartQuiz={() => setCurrentTab('quiz')} />
+        return <Home onStartQuiz={handleStartQuiz} />
       case 'quiz':
-        return <QuizApp />
+        return (
+          <QuizApp
+            initialVocabulary={presetVocabulary}
+            initialDeckTitle={presetDeckTitle}
+          />
+        )
       case 'memory':
         return <MemoryGame />
       case 'blog':
         return <Forum />
       default:
-        return <Home onStartQuiz={() => setCurrentTab('quiz')} />
+        return <Home onStartQuiz={handleStartQuiz} />
     }
   }
 

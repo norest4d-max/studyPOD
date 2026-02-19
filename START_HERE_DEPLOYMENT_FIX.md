@@ -96,6 +96,18 @@ git push origin copilot/repair-and-continue-structure:main
 
 ---
 
+### Option 4: Keep Cloudflare Root as `main` (Fallback)
+
+If Cloudflare is currently configured with **Root directory = `main`** and you cannot change dashboard settings right now, this repository now includes a fallback build shim at:
+
+`main/package.json`
+
+This lets the build complete even when Cloudflare runs from `/opt/buildhome/repo/main`.
+
+**Recommended long-term fix remains:** set Root directory to `/` (or empty) in Cloudflare.
+
+---
+
 ## What Happens After You Fix It
 
 ### Build Log Will Show

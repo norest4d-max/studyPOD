@@ -1,44 +1,60 @@
-import { useState } from 'react'
 import './Home.css'
+import { A_PLUS_FILL_BLANK_SETS, A_PLUS_FULL_DECK, cardsToVocabulary } from '../data/prebuiltFlashcards'
 
 function Home({ onStartQuiz }) {
+  const totalSets = A_PLUS_FILL_BLANK_SETS.length
+  const totalCards = A_PLUS_FULL_DECK.cards.length
+
+  const handleLaunchFullDeck = () => {
+    onStartQuiz({
+      vocabulary: cardsToVocabulary(A_PLUS_FULL_DECK.cards),
+      deckTitle: `${A_PLUS_FULL_DECK.title} (${totalCards} cards)`
+    })
+  }
+
+  const handleLaunchSet = (setData) => {
+    onStartQuiz({
+      vocabulary: cardsToVocabulary(setData.cards),
+      deckTitle: `Set ${setData.id}: ${setData.title} (${setData.cards.length} cards)`
+    })
+  }
+
   return (
     <div className="home">
       <div className="container">
         <div className="hero-section">
           <div className="hero-content">
             <h1 className="hero-title">
-              Welcome to StudyPOD
-              <span className="weasel-mascot">🦦💙</span>
+              StudyPOD
             </h1>
             <p className="hero-subtitle">
-              Your adaptive learning companion for vocabulary mastery and memory training
+              Focused, clean, fill-in-the-blank flashcard training for IT and A+ prep
             </p>
           </div>
 
           <div className="features-grid">
             <div className="feature-card">
-              <div className="feature-icon">📚</div>
+              <div className="feature-icon">01</div>
               <h3>Smart Quiz</h3>
-              <p>Adaptive learning that focuses on words you find challenging</p>
+              <p>Adaptive multiple choice with performance tracking and review feedback</p>
               <button onClick={onStartQuiz} className="feature-btn">
                 Start Quiz
               </button>
             </div>
 
             <div className="feature-card">
-              <div className="feature-icon">🎮</div>
-              <h3>Memory Game</h3>
-              <p>Train your memory with our blue-themed pattern recognition game</p>
-              <button className="feature-btn secondary">
-                Coming Soon
+              <div className="feature-icon">02</div>
+              <h3>Prebuilt Flashcards</h3>
+              <p>{totalSets} curated sets, {totalCards} fill-in-the-blank cards, ready to play</p>
+              <button onClick={handleLaunchFullDeck} className="feature-btn">
+                Start Full Deck
               </button>
             </div>
 
             <div className="feature-card">
-              <div className="feature-icon">💬</div>
-              <h3>Community</h3>
-              <p>Share your progress and connect with other learners</p>
+              <div className="feature-icon">03</div>
+              <h3>Memory Game</h3>
+              <p>Pattern training module for concentration and recall sessions</p>
               <button className="feature-btn secondary">
                 Coming Soon
               </button>
@@ -46,11 +62,37 @@ function Home({ onStartQuiz }) {
           </div>
         </div>
 
+        <div className="prebuilt-section">
+          <h2>Prebuilt Flashcards</h2>
+          <p className="prebuilt-subtitle">
+            CompTIA-style A+ fill-in-the-blank deck packs. Choose the full 150-card game or launch by set.
+          </p>
+
+          <div className="prebuilt-cta">
+            <button onClick={handleLaunchFullDeck} className="feature-btn">
+              Play Full 150-Card Deck
+            </button>
+          </div>
+
+          <div className="set-grid">
+            {A_PLUS_FILL_BLANK_SETS.map((setData) => (
+              <div className="set-card" key={setData.id}>
+                <div className="set-meta">Set {setData.id}</div>
+                <h3>{setData.title}</h3>
+                <p>{setData.cards[0].prompt}</p>
+                <button onClick={() => handleLaunchSet(setData)} className="feature-btn secondary-action">
+                  Play 6 Cards
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="instructions-section">
           <h2>How to Get Started</h2>
           
           <div className="instruction-card">
-            <h3>📝 Create Your Vocabulary File</h3>
+            <h3>Create Your Vocabulary File</h3>
             <p>Make a simple .txt file with word:definition pairs (one per line)</p>
             <div className="code-example">
               <pre>{`algorithm:A step-by-step procedure for solving problems
@@ -66,7 +108,7 @@ function:A reusable block of code`}</pre>
           </div>
 
           <div className="instruction-card">
-            <h3>🎯 Import & Study</h3>
+            <h3>Import & Study</h3>
             <ol className="steps-list">
               <li>Click the Quiz tab above</li>
               <li>Upload your .txt file or use our example</li>

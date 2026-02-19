@@ -1,20 +1,40 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Welcome from './Welcome'
 import QuizMode from './QuizMode'
 import Quiz from './Quiz'
 import Summary from './Summary'
 import './QuizApp.css'
 
-function QuizApp() {
+function QuizApp({ initialVocabulary = null, initialDeckTitle = '' }) {
   const [stage, setStage] = useState('welcome')
   const [vocabulary, setVocabulary] = useState({})
   const [quizMode, setQuizMode] = useState(null)
   const [numQuestions, setNumQuestions] = useState(null)
   const [results, setResults] = useState([])
+  const [deckTitle, setDeckTitle] = useState('')
   const [performanceData, setPerformanceData] = useState({}) // Track hard words
+
+  useEffect(() => {
+    const stored = localStorage.getItem('quizPerformance')
+    if (stored) {
+      setPerformanceData(JSON.parse(stored))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (initialVocabulary && Object.keys(initialVocabulary).length > 0) {
+      setVocabulary(initialVocabulary)
+      setDeckTitle(initialDeckTitle || 'Prebuilt Flashcards')
+      setStage('mode')
+      setResults([])
+      setQuizMode(null)
+      setNumQuestions(null)
+    }
+  }, [initialVocabulary, initialDeckTitle])
 
   const handleVocabularyLoad = (vocabData) => {
     setVocabulary(vocabData)
+    setDeckTitle('')
     // Load performance data from localStorage
     const stored = localStorage.getItem('quizPerformance')
     if (stored) {
@@ -60,6 +80,7 @@ function QuizApp() {
   const handleNewFile = () => {
     setStage('welcome')
     setVocabulary({})
+    setDeckTitle('')
     setQuizMode(null)
     setNumQuestions(null)
     setResults([])
@@ -73,12 +94,14 @@ function QuizApp() {
       {stage === 'mode' && (
         <QuizMode 
           vocabulary={vocabulary}
+          deckTitle={deckTitle}
           onModeSelect={handleModeSelect}
         />
       )}
       {stage === 'quiz' && (
         <Quiz 
           vocabulary={vocabulary}
+          deckTitle={deckTitle}
           quizMode={quizMode}
           numQuestions={numQuestions}
           onComplete={handleQuizComplete}

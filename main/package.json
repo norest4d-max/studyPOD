@@ -1,0 +1,9 @@
+{
+  "name": "studypod-cloudflare-main-shim",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Build shim for Cloudflare Pages when root directory is set to main",
+  "scripts": {
+    "build": "npm --prefix .. install && npm --prefix .. run build && node -e \"const fs=require('fs');fs.rmSync('./dist',{recursive:true,force:true});fs.cpSync('../dist','./dist',{recursive:true});\""
+  }
+}
