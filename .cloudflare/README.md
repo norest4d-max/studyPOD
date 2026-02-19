@@ -50,7 +50,7 @@ This means Cloudflare is trying to build from a commit that doesn't have the Rea
 3. Update Cloudflare Pages settings to point to the correct branch
 4. Retry the deployment
 
-See `FIX_CLOUDFLARE_BRANCH_ERROR.md` in the repository root for detailed instructions.
+See `CLOUDFLARE_BUILD_ERROR_FIX.md` or `FIX_CLOUDFLARE_BRANCH_ERROR.md` in the repository root for detailed instructions.
 
 #### Build succeeds but site doesn't work
 
@@ -71,6 +71,7 @@ This script checks for all required files and attempts a build.
 
 ### Additional Documentation
 
+- `CLOUDFLARE_BUILD_ERROR_FIX.md` - Complete error fix guide with root cause analysis
 - `CLOUDFLARE_PAGES_SIMPLE.md` - Simple deployment guide
 - `FIX_CLOUDFLARE_BRANCH_ERROR.md` - Fix branch configuration issues
 - `DEPLOYMENT_SETTINGS.md` - Quick reference card

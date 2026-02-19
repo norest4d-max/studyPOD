@@ -89,6 +89,6 @@ else
     echo "  1. You're deploying from the correct branch"
     echo "  2. The branch contains the React app files"
     echo ""
-    echo "See FIX_CLOUDFLARE_BRANCH_ERROR.md for help"
+    echo "See CLOUDFLARE_BUILD_ERROR_FIX.md or FIX_CLOUDFLARE_BRANCH_ERROR.md for help"
     exit 1
 fi
