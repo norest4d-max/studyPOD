@@ -179,29 +179,24 @@ function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, perfo
 
           <div className="divider"></div>
 
-          {/* Display GIF if available */}
+          {/* Display visual icon if available */}
           {hasGifs && currentGif && (
             <div className="gif-container" style={{
               textAlign: 'center',
               margin: '1.5rem 0',
-              padding: '1rem',
-              background: 'rgba(102, 126, 234, 0.1)',
-              borderRadius: '8px',
-              border: '2px solid rgba(102, 126, 234, 0.3)'
+              padding: '1.5rem',
+              background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)',
+              borderRadius: '12px',
+              border: '2px solid rgba(102, 126, 234, 0.3)',
+              fontSize: '4rem',
+              lineHeight: '1'
             }}>
-              <img 
-                src={currentGif} 
-                alt="Related meme" 
-                style={{
-                  maxWidth: '100%',
-                  maxHeight: '250px',
-                  borderRadius: '8px',
-                  objectFit: 'contain'
-                }}
-                onError={(e) => {
-                  e.target.style.display = 'none'
-                }}
-              />
+              <div style={{
+                display: 'inline-block',
+                animation: 'bounce 2s ease-in-out infinite'
+              }}>
+                {currentGif}
+              </div>
             </div>
           )}
 

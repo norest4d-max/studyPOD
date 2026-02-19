@@ -31,7 +31,7 @@ function Home({ onStartQuiz }) {
   const handleLaunchVocabularyDeck = () => {
     onStartQuiz({
       vocabulary: A_PLUS_VOCABULARY_DECK.vocabulary,
-      deckTitle: `A+ Vocabulary • ${A_PLUS_VOCABULARY_DECK.title} (${vocabularyDeckCards} cards with GIFs)`,
+      deckTitle: `A+ Vocabulary • ${A_PLUS_VOCABULARY_DECK.title} (${vocabularyDeckCards} cards with visual aids)`,
       hasGifs: true,
       categoryCards: A_PLUS_VOCABULARY_DECK.cards
     })
@@ -40,7 +40,7 @@ function Home({ onStartQuiz }) {
   const handleLaunchVocabCategory = (categoryData) => {
     onStartQuiz({
       vocabulary: categoryData.vocabulary,
-      deckTitle: `A+ Vocabulary • ${categoryData.title} (${categoryData.cards.length} cards with GIFs)`,
+      deckTitle: `A+ Vocabulary • ${categoryData.title} (${categoryData.cards.length} cards with visual aids)`,
       hasGifs: true,
       categoryCards: categoryData.cards
     })
@@ -107,9 +107,9 @@ function Home({ onStartQuiz }) {
           <div className="new-deck-callout" style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', marginTop: '1.5rem'}}>
             <div className="new-deck-badge">🎯 VOCABULARY PACKAGE</div>
             <h3>{A_PLUS_VOCABULARY_DECK.title}</h3>
-            <p>Complete A+ vocabulary with relevant meme GIFs for enhanced memory retention! {vocabularyDeckCards} terms covering hardware, networking, security, and more.</p>
+            <p>Complete A+ vocabulary with relevant emoji visual aids for enhanced memory retention! {vocabularyDeckCards} terms covering hardware, networking, security, and more.</p>
             <button onClick={handleLaunchVocabularyDeck} className="feature-btn">
-              Launch Vocabulary Deck with GIFs ({vocabularyDeckCards})
+              Launch Vocabulary Deck with Visual Aids ({vocabularyDeckCards})
             </button>
           </div>
 
@@ -133,9 +133,9 @@ function Home({ onStartQuiz }) {
             ))}
           </div>
 
-          <h2 style={{marginTop: '3rem'}}>Vocabulary Sets with Meme GIFs 🎬</h2>
+          <h2 style={{marginTop: '3rem'}}>Vocabulary Sets with Visual Memory Aids 🎯</h2>
           <p className="prebuilt-subtitle">
-            Themed vocabulary sets with relevant reaction GIFs for better memory retention
+            Themed vocabulary sets with relevant emoji icons for better memory retention
           </p>
           
           <div className="set-grid">
@@ -144,7 +144,7 @@ function Home({ onStartQuiz }) {
                 <div className="set-meta">🎯 Vocab Set {categoryData.id}</div>
                 <div className="set-word-title">{toWordWordTitle(categoryData.title)}</div>
                 <h3>{categoryData.title}</h3>
-                <p>Learn {categoryData.cards.length} {categoryData.category} terms with GIFs</p>
+                <p>Learn {categoryData.cards.length} {categoryData.category} terms with visual aids</p>
                 <button onClick={() => handleLaunchVocabCategory(categoryData)} className="feature-btn secondary-action">
                   Play {categoryData.cards.length} Cards
                 </button>
