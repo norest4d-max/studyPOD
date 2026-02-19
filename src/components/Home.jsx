@@ -1,10 +1,11 @@
 import './Home.css'
-import { A_PLUS_CERTIFICATION_DECK, A_PLUS_FILL_BLANK_SETS, A_PLUS_FULL_DECK, cardsToVocabulary, toWordWordTitle } from '../data/prebuiltFlashcards'
+import { A_PLUS_CERTIFICATION_DECK, A_PLUS_FILL_BLANK_SETS, A_PLUS_FULL_DECK, cardsToVocabulary, toWordWordTitle, A_PLUS_VOCABULARY_DECK, A_PLUS_VOCABULARY_CATEGORY_SETS } from '../data/prebuiltFlashcards'
 
 function Home({ onStartQuiz }) {
   const totalSets = A_PLUS_FILL_BLANK_SETS.length
   const totalCards = A_PLUS_FULL_DECK.cards.length
   const certificationDeckCards = A_PLUS_CERTIFICATION_DECK.cards.length
+  const vocabularyDeckCards = A_PLUS_VOCABULARY_DECK.totalCards
 
   const handleLaunchCertificationDeck = () => {
     onStartQuiz({
@@ -24,6 +25,23 @@ function Home({ onStartQuiz }) {
     onStartQuiz({
       vocabulary: cardsToVocabulary(setData.cards),
       deckTitle: `${toWordWordTitle(setData.title)} • Set ${setData.id}: ${setData.title} (${setData.cards.length} cards)`
+    })
+  }
+
+  const handleLaunchVocabularyDeck = () => {
+    onStartQuiz({
+      vocabulary: A_PLUS_VOCABULARY_DECK.vocabulary,
+      deckTitle: `A+ Vocabulary • ${A_PLUS_VOCABULARY_DECK.title} (${vocabularyDeckCards} cards with GIFs)`,
+      hasGifs: true
+    })
+  }
+
+  const handleLaunchVocabCategory = (categoryData) => {
+    onStartQuiz({
+      vocabulary: categoryData.vocabulary,
+      deckTitle: `A+ Vocabulary • ${categoryData.title} (${categoryData.cards.length} cards with GIFs)`,
+      hasGifs: true,
+      categoryCards: categoryData.cards
     })
   }
 
@@ -85,6 +103,15 @@ function Home({ onStartQuiz }) {
             </button>
           </div>
 
+          <div className="new-deck-callout" style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', marginTop: '1.5rem'}}>
+            <div className="new-deck-badge">🎯 VOCABULARY PACKAGE</div>
+            <h3>{A_PLUS_VOCABULARY_DECK.title}</h3>
+            <p>Complete A+ vocabulary with relevant meme GIFs for enhanced memory retention! {vocabularyDeckCards} terms covering hardware, networking, security, and more.</p>
+            <button onClick={handleLaunchVocabularyDeck} className="feature-btn">
+              Launch Vocabulary Deck with GIFs ({vocabularyDeckCards})
+            </button>
+          </div>
+
           <div className="prebuilt-cta">
             <button onClick={handleLaunchFullDeck} className="feature-btn">
               Play Full 150-Card Deck
@@ -100,6 +127,25 @@ function Home({ onStartQuiz }) {
                 <p>{setData.cards[0].prompt}</p>
                 <button onClick={() => handleLaunchSet(setData)} className="feature-btn secondary-action">
                   Play 6 Cards
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <h2 style={{marginTop: '3rem'}}>Vocabulary Sets with Meme GIFs 🎬</h2>
+          <p className="prebuilt-subtitle">
+            Themed vocabulary sets with relevant reaction GIFs for better memory retention
+          </p>
+          
+          <div className="set-grid">
+            {A_PLUS_VOCABULARY_CATEGORY_SETS.map((categoryData) => (
+              <div className="set-card" key={categoryData.id} style={{borderLeft: '3px solid #667eea'}}>
+                <div className="set-meta">🎯 Vocab Set {categoryData.id}</div>
+                <div className="set-word-title">{toWordWordTitle(categoryData.title)}</div>
+                <h3>{categoryData.title}</h3>
+                <p>Learn {categoryData.cards.length} {categoryData.category} terms with GIFs</p>
+                <button onClick={() => handleLaunchVocabCategory(categoryData)} className="feature-btn secondary-action">
+                  Play {categoryData.cards.length} Cards
                 </button>
               </div>
             ))}

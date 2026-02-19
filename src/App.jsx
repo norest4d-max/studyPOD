@@ -10,14 +10,20 @@ function App() {
   const [currentTab, setCurrentTab] = useState('home')
   const [presetVocabulary, setPresetVocabulary] = useState(null)
   const [presetDeckTitle, setPresetDeckTitle] = useState('')
+  const [hasGifs, setHasGifs] = useState(false)
+  const [categoryCards, setCategoryCards] = useState(null)
 
   const handleStartQuiz = (preset = null) => {
     if (preset?.vocabulary) {
       setPresetVocabulary(preset.vocabulary)
       setPresetDeckTitle(preset.deckTitle || 'Prebuilt Flashcards')
+      setHasGifs(preset.hasGifs || false)
+      setCategoryCards(preset.categoryCards || null)
     } else {
       setPresetVocabulary(null)
       setPresetDeckTitle('')
+      setHasGifs(false)
+      setCategoryCards(null)
     }
     setCurrentTab('quiz')
   }
@@ -31,6 +37,8 @@ function App() {
           <QuizApp
             initialVocabulary={presetVocabulary}
             initialDeckTitle={presetDeckTitle}
+            hasGifs={hasGifs}
+            categoryCards={categoryCards}
           />
         )
       case 'memory':

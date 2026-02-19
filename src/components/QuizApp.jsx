@@ -5,7 +5,7 @@ import Quiz from './Quiz'
 import Summary from './Summary'
 import './QuizApp.css'
 
-function QuizApp({ initialVocabulary = null, initialDeckTitle = '' }) {
+function QuizApp({ initialVocabulary = null, initialDeckTitle = '', hasGifs = false, categoryCards = null }) {
   const [stage, setStage] = useState('welcome')
   const [vocabulary, setVocabulary] = useState({})
   const [quizMode, setQuizMode] = useState(null)
@@ -13,6 +13,8 @@ function QuizApp({ initialVocabulary = null, initialDeckTitle = '' }) {
   const [results, setResults] = useState([])
   const [deckTitle, setDeckTitle] = useState('')
   const [performanceData, setPerformanceData] = useState({}) // Track hard words
+  const [gifEnabled, setGifEnabled] = useState(false)
+  const [vocabCards, setVocabCards] = useState(null)
 
   useEffect(() => {
     const stored = localStorage.getItem('quizPerformance')
@@ -25,12 +27,14 @@ function QuizApp({ initialVocabulary = null, initialDeckTitle = '' }) {
     if (initialVocabulary && Object.keys(initialVocabulary).length > 0) {
       setVocabulary(initialVocabulary)
       setDeckTitle(initialDeckTitle || 'Prebuilt Flashcards')
+      setGifEnabled(hasGifs || false)
+      setVocabCards(categoryCards || null)
       setStage('mode')
       setResults([])
       setQuizMode(null)
       setNumQuestions(null)
     }
-  }, [initialVocabulary, initialDeckTitle])
+  }, [initialVocabulary, initialDeckTitle, hasGifs, categoryCards])
 
   const handleVocabularyLoad = (vocabData) => {
     setVocabulary(vocabData)
@@ -106,6 +110,8 @@ function QuizApp({ initialVocabulary = null, initialDeckTitle = '' }) {
           numQuestions={numQuestions}
           onComplete={handleQuizComplete}
           performanceData={performanceData}
+          hasGifs={gifEnabled}
+          vocabCards={vocabCards}
         />
       )}
       {stage === 'summary' && (

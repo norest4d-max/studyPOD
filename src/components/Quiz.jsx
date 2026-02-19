@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './Quiz.css'
 import { getCatalogAppearanceBit, getFillBlankSpinBit, getSatireConfidenceBit } from '../data/satireBits'
 
-function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, performanceData = {} }) {
+function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, performanceData = {}, hasGifs = false, vocabCards = null }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [questions, setQuestions] = useState([])
   const [selectedAnswer, setSelectedAnswer] = useState(null)
@@ -12,6 +12,7 @@ function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, perfo
   const [satireConfidence, setSatireConfidence] = useState('')
   const [catalogAppearance, setCatalogAppearance] = useState('')
   const [fillBlankSpin, setFillBlankSpin] = useState('')
+  const [currentGif, setCurrentGif] = useState(null)
 
   useEffect(() => {
     generateQuestions()
@@ -64,13 +65,21 @@ function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, perfo
     const generatedQuestions = selectedWords.map(word => {
       const correctDefinition = vocabulary[word]
       
+      // Find GIF for this term if available
+      let gif = null
+      if (hasGifs && vocabCards) {
+        const card = vocabCards.find(c => c.prompt === word || c.answer === correctDefinition)
+        gif = card?.gif || null
+      }
+      
       if (quizMode === 'word_to_def') {
         return {
           question: word,
           correctAnswer: correctDefinition,
           options: generateOptions(correctDefinition, Object.values(vocabulary)),
           word: word,
-          definition: correctDefinition
+          definition: correctDefinition,
+          gif: gif
         }
       } else {
         return {
@@ -78,13 +87,19 @@ function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, perfo
           correctAnswer: word,
           options: generateOptions(word, words),
           word: word,
-          definition: correctDefinition
+          definition: correctDefinition,
+          gif: gif
         }
       }
     })
     
     setQuestions(generatedQuestions)
     setStartTime(Date.now())
+    
+    // Set initial GIF
+    if (generatedQuestions.length > 0 && generatedQuestions[0].gif) {
+      setCurrentGif(generatedQuestions[0].gif)
+    }
   }
 
   const generateOptions = (correct, allOptions) => {
@@ -121,13 +136,21 @@ function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, perfo
 
   const handleNext = () => {
     if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1)
+      const nextQuestion = currentQuestion + 1
+      setCurrentQuestion(nextQuestion)
       setSelectedAnswer(null)
       setShowFeedback(false)
       setSatireConfidence('')
       setCatalogAppearance('')
       setFillBlankSpin('')
       setStartTime(Date.now())
+      
+      // Update GIF for next question
+      if (questions[nextQuestion]?.gif) {
+        setCurrentGif(questions[nextQuestion].gif)
+      } else {
+        setCurrentGif(null)
+      }
     } else {
       // Quiz is complete, pass all results
       onComplete(results)
@@ -155,6 +178,32 @@ function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, perfo
           </div>
 
           <div className="divider"></div>
+
+          {/* Display GIF if available */}
+          {hasGifs && currentGif && (
+            <div className="gif-container" style={{
+              textAlign: 'center',
+              margin: '1.5rem 0',
+              padding: '1rem',
+              background: 'rgba(102, 126, 234, 0.1)',
+              borderRadius: '8px',
+              border: '2px solid rgba(102, 126, 234, 0.3)'
+            }}>
+              <img 
+                src={currentGif} 
+                alt="Related meme" 
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: '250px',
+                  borderRadius: '8px',
+                  objectFit: 'contain'
+                }}
+                onError={(e) => {
+                  e.target.style.display = 'none'
+                }}
+              />
+            </div>
+          )}
 
           <div className="question-content">
             <div className="question-label">
