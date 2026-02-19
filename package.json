@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "jest",
+    "verify": "bash verify-build.sh",
     "deploy": "npm run build && wrangler pages deploy dist"
   },
   "dependencies": {
