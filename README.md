@@ -44,10 +44,16 @@ The app is deployed on Netlify! Access it without installing anything.
 
 ## 📖 Documentation
 
+### Deployment
+- **[DEPLOYMENT_SETTINGS.md](DEPLOYMENT_SETTINGS.md)** - ⭐ Quick reference: Copy/paste deployment settings
+- **[BUILD_VERIFICATION.md](BUILD_VERIFICATION.md)** - Verified build configuration details
+- **[CLOUDFLARE_PAGES_SIMPLE.md](CLOUDFLARE_PAGES_SIMPLE.md)** - Cloudflare Pages deployment guide
+- **[NETLIFY_DEPLOY.md](NETLIFY_DEPLOY.md)** - Netlify deployment guide
+
+### Features & Setup
 - **[FEATURES_GUIDE.md](FEATURES_GUIDE.md)** - Complete feature documentation with screenshots
 - **[FIREBASE_SETUP.md](FIREBASE_SETUP.md)** - Step-by-step Firebase integration guide
 - **[QUICK_START.md](QUICK_START.md)** - Local development guide
-- **[NETLIFY_DEPLOY.md](NETLIFY_DEPLOY.md)** - Deployment guide
 
 ## Technology Stack
 
@@ -214,6 +220,15 @@ Time: 3.45s
 - Modern web browser (Chrome, Firefox, Safari, Edge)
 
 ## Deployment
+
+### ✅ Verified Build Configuration
+
+**Framework**: React (Vite)  
+**Build command**: `npm run build`  
+**Output directory**: `dist`
+
+📋 **[DEPLOYMENT_SETTINGS.md](DEPLOYMENT_SETTINGS.md)** - Quick reference card with copy/paste settings  
+📖 **[BUILD_VERIFICATION.md](BUILD_VERIFICATION.md)** - Complete build configuration verification
 
 ### Cloudflare Pages (Recommended)
 
