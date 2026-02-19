@@ -1,6 +1,14 @@
 # studyPOD
 Streamlined flashcard app built for fast review and long-term retention.
 
+## 🚨 CLOUDFLARE DEPLOYMENT ERROR?
+
+**Getting "package.json not found" error?** → **[START_HERE_DEPLOYMENT_FIX.md](./START_HERE_DEPLOYMENT_FIX.md)** 
+
+**Quick fix**: Cloudflare is deploying from `main` branch, but your React app is on `copilot/repair-and-continue-structure` branch. Solution: Change branch in Cloudflare dashboard (2 min) OR merge to main. **[Full guide here →](./START_HERE_DEPLOYMENT_FIX.md)**
+
+---
+
 ## 🚀 Quick Start - Run Locally
 
 **New to this?** Check out [QUICK_START.md](QUICK_START.md) for detailed beginner-friendly instructions!
