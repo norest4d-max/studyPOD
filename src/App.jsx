@@ -4,7 +4,7 @@ import Navigation from './components/Navigation'
 import Home from './components/Home'
 import QuizApp from './components/QuizApp'
 import MemoryGame from './components/MemoryGame'
-import Blog from './components/Blog'
+import Forum from './components/Forum'
 
 function App() {
   const [currentTab, setCurrentTab] = useState('home')
@@ -18,7 +18,7 @@ function App() {
       case 'memory':
         return <MemoryGame />
       case 'blog':
-        return <Blog />
+        return <Forum />
       default:
         return <Home onStartQuiz={() => setCurrentTab('quiz')} />
     }
