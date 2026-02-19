@@ -1,7 +1,8 @@
 import './Home.css'
 import { A_PLUS_CERTIFICATION_DECK, A_PLUS_FILL_BLANK_SETS, A_PLUS_FULL_DECK, cardsToVocabulary, toWordWordTitle, A_PLUS_VOCABULARY_DECK, A_PLUS_VOCABULARY_CATEGORY_SETS } from '../data/prebuiltFlashcards'
+import { PRECALCULUS_DECK, mathCardsToVocabulary } from '../data/mathContent'
 
-function Home({ onStartQuiz }) {
+function Home({ onStartQuiz, onStartLesson }) {
   const totalSets = A_PLUS_FILL_BLANK_SETS.length
   const totalCards = A_PLUS_FULL_DECK.cards.length
   const certificationDeckCards = A_PLUS_CERTIFICATION_DECK.cards.length
@@ -46,6 +47,14 @@ function Home({ onStartQuiz }) {
     })
   }
 
+  const handleLaunchPreCalculus = () => {
+    onStartQuiz({
+      vocabulary: mathCardsToVocabulary(PRECALCULUS_DECK.cards),
+      deckTitle: `${PRECALCULUS_DECK.title} • Smart Quiz Style (${PRECALCULUS_DECK.totalCards} cards)`,
+      isMathDeck: true
+    })
+  }
+
   return (
     <div className="home">
       <div className="container">
@@ -86,6 +95,31 @@ function Home({ onStartQuiz }) {
                 Coming Soon
               </button>
             </div>
+          </div>
+        </div>
+
+        <div className="math-section">
+          <h2 className="math-section-title">📐 Mathematics Learning - Smart Quiz Style</h2>
+          <p className="prebuilt-subtitle">
+            Adaptive learning for Pre-Calculus and Pre-Algebra with real-world problem solving
+          </p>
+
+          <div className="new-deck-callout math-deck-purple" style={{background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)', marginTop: '1.5rem'}}>
+            <div className="new-deck-badge math-badge">🎓 SMART QUIZ STYLE</div>
+            <h3>Pre-Calculus Fundamentals</h3>
+            <p>Master functions, polynomials, trigonometry, and more with adaptive difficulty adjustment. The quiz learns from your performance and adjusts to your level!</p>
+            <button onClick={handleLaunchPreCalculus} className="feature-btn math-btn">
+              Start Pre-Calculus Quiz ({PRECALCULUS_DECK.totalCards} cards)
+            </button>
+          </div>
+
+          <div className="new-deck-callout math-deck-purple" style={{background: 'linear-gradient(135deg, #a78bfa 0%, #818cf8 100%)', marginTop: '1.5rem'}}>
+            <div className="new-deck-badge math-badge">📚 LESSONS + QUIZ</div>
+            <h3>Pre-Algebra Chapter 1: Introduction to Integers</h3>
+            <p>Learn with Carl, your sarcastic but helpful AI tutor. Complete interactive lessons, then test your knowledge with adaptive quizzes!</p>
+            <button onClick={onStartLesson} className="feature-btn math-btn">
+              Start Chapter 1 Lesson
+            </button>
           </div>
         </div>
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Quiz.css'
 import { getCatalogAppearanceBit, getFillBlankSpinBit, getSatireConfidenceBit } from '../data/satireBits'
+import soundService from '../services/soundService'
 
 function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, performanceData = {}, hasGifs = false, vocabCards = null }) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
@@ -119,6 +120,14 @@ function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, perfo
     const timeTaken = (endTime - startTime) / 1000
     
     const isCorrect = answer === questions[currentQuestion].correctAnswer
+    
+    // Play sound feedback
+    if (isCorrect) {
+      soundService.playCorrect()
+    } else {
+      soundService.playIncorrect()
+    }
+    
     setSatireConfidence(getSatireConfidenceBit(isCorrect))
     setCatalogAppearance(getCatalogAppearanceBit())
     setFillBlankSpin(getFillBlankSpinBit())
@@ -153,6 +162,7 @@ function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, perfo
       }
     } else {
       // Quiz is complete, pass all results
+      soundService.playComplete()
       onComplete(results)
     }
   }

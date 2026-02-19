@@ -5,6 +5,9 @@ import Home from './components/Home'
 import QuizApp from './components/QuizApp'
 import MemoryGame from './components/MemoryGame'
 import Forum from './components/Forum'
+import Footer from './components/Footer'
+import LessonMode from './components/LessonMode'
+import { PREALGEBRA_CHAPTER1 } from './data/mathContent'
 
 function App() {
   const [currentTab, setCurrentTab] = useState('home')
@@ -12,6 +15,9 @@ function App() {
   const [presetDeckTitle, setPresetDeckTitle] = useState('')
   const [hasGifs, setHasGifs] = useState(false)
   const [categoryCards, setCategoryCards] = useState(null)
+  const [showLesson, setShowLesson] = useState(false)
+  const [lessonQuizMode, setLessonQuizMode] = useState(false)
+  const [lessonQuizQuestions, setLessonQuizQuestions] = useState(null)
 
   const handleStartQuiz = (preset = null) => {
     if (preset?.vocabulary) {
@@ -25,13 +31,43 @@ function App() {
       setHasGifs(false)
       setCategoryCards(null)
     }
+    setShowLesson(false)
+    setLessonQuizMode(false)
     setCurrentTab('quiz')
   }
 
+  const handleStartLesson = () => {
+    setShowLesson(true)
+    setLessonQuizMode(false)
+    setCurrentTab('lesson')
+  }
+
+  const handleLessonQuizStart = (questions) => {
+    setLessonQuizQuestions(questions)
+    setLessonQuizMode(true)
+    setShowLesson(false)
+  }
+
+  const handleBackToHome = () => {
+    setShowLesson(false)
+    setLessonQuizMode(false)
+    setCurrentTab('home')
+  }
+
   const renderContent = () => {
+    if (showLesson) {
+      return (
+        <LessonMode 
+          lessonData={PREALGEBRA_CHAPTER1}
+          onStartQuiz={handleLessonQuizStart}
+          onBack={handleBackToHome}
+        />
+      )
+    }
+
     switch(currentTab) {
       case 'home':
-        return <Home onStartQuiz={handleStartQuiz} />
+        return <Home onStartQuiz={handleStartQuiz} onStartLesson={handleStartLesson} />
       case 'quiz':
         return (
           <QuizApp
@@ -39,6 +75,16 @@ function App() {
             initialDeckTitle={presetDeckTitle}
             hasGifs={hasGifs}
             categoryCards={categoryCards}
+            lessonQuizMode={lessonQuizMode}
+            lessonQuizQuestions={lessonQuizQuestions}
+          />
+        )
+      case 'lesson':
+        return (
+          <LessonMode 
+            lessonData={PREALGEBRA_CHAPTER1}
+            onStartQuiz={handleLessonQuizStart}
+            onBack={handleBackToHome}
           />
         )
       case 'memory':
@@ -46,7 +92,7 @@ function App() {
       case 'blog':
         return <Forum />
       default:
-        return <Home onStartQuiz={handleStartQuiz} />
+        return <Home onStartQuiz={handleStartQuiz} onStartLesson={handleStartLesson} />
     }
   }
 
@@ -56,6 +102,7 @@ function App() {
       <main className="app-content">
         {renderContent()}
       </main>
+      <Footer />
     </div>
   )
 }
