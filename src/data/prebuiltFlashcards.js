@@ -1,3 +1,5 @@
+import { A_PLUS_VOCABULARY_DECK, A_PLUS_VOCABULARY_CATEGORY_SETS } from './aPlusVocabularyWithGifs.js'
+
 export const A_PLUS_FILL_BLANK_SETS = [
   {
     id: 1,
@@ -343,3 +345,6 @@ export const toWordWordTitle = (text) => {
 }
 
 const capitalize = (value) => value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
+
+// Export vocabulary deck
+export { A_PLUS_VOCABULARY_DECK, A_PLUS_VOCABULARY_CATEGORY_SETS }
