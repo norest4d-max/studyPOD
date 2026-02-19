@@ -15,7 +15,39 @@ Then open `http://localhost:3000` in your browser!
 
 ## 🌐 Online Version
 
-The app is also deployed on Netlify! You can access it without installing anything.
+The app is deployed on Netlify! Access it without installing anything.
+
+## ✨ New Features
+
+### 🏠 Home Page
+- Welcome screen with instructions
+- Feature previews
+- Complete guide for creating vocabulary files
+
+### 📚 Smart Quiz
+- **Adaptive Learning** - Focuses on words you find challenging
+- Tracks your performance
+- Randomized question order
+- Weighted selection favors difficult words
+
+### 🎮 Memory Pattern Game
+- Simon Says style game
+- 9 blue-shaded squares
+- Progressive difficulty
+- High score tracking
+
+### 💬 Community Hub (Coming Soon)
+- Firebase-powered
+- User authentication
+- Share progress and vocabulary sets
+- Reddit-style discussions
+
+## 📖 Documentation
+
+- **[FEATURES_GUIDE.md](FEATURES_GUIDE.md)** - Complete feature documentation with screenshots
+- **[FIREBASE_SETUP.md](FIREBASE_SETUP.md)** - Step-by-step Firebase integration guide
+- **[QUICK_START.md](QUICK_START.md)** - Local development guide
+- **[NETLIFY_DEPLOY.md](NETLIFY_DEPLOY.md)** - Deployment guide
 
 ## Technology Stack
 
