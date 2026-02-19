@@ -1,0 +1,75 @@
+name: Build Verification
+
+on:
+  push:
+    branches: [ main, 'copilot/**' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify-build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Check for required files
+      run: |
+        echo "Checking for React app files..."
+        if [ ! -f "package.json" ]; then
+          echo "❌ Error: package.json not found"
+          echo "This branch appears to have the Python version instead of the React app"
+          exit 1
+        fi
+        echo "✅ package.json found"
+        
+        if [ ! -f "vite.config.js" ]; then
+          echo "❌ Error: vite.config.js not found"
+          exit 1
+        fi
+        echo "✅ vite.config.js found"
+        
+        if [ ! -d "src" ]; then
+          echo "❌ Error: src/ directory not found"
+          exit 1
+        fi
+        echo "✅ src/ directory found"
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build project
+      run: npm run build
+      
+    - name: Verify build output
+      run: |
+        if [ ! -d "dist" ]; then
+          echo "❌ Error: dist/ directory not created"
+          exit 1
+        fi
+        echo "✅ Build successful - dist/ directory created"
+        
+        if [ ! -f "dist/index.html" ]; then
+          echo "❌ Error: dist/index.html not found"
+          exit 1
+        fi
+        echo "✅ dist/index.html exists"
+        
+    - name: Check for vulnerabilities
+      run: npm audit --audit-level=high || true
+      
+    - name: Summary
+      run: |
+        echo "✅ All checks passed!"
+        echo ""
+        echo "This branch is ready for Cloudflare Pages deployment with:"
+        echo "  Build command: npm run build"
+        echo "  Build output directory: dist"
+        echo "  Framework preset: Vite"

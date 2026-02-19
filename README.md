@@ -5,7 +5,9 @@ Streamlined flashcard app built for fast review and long-term retention.
 
 **Getting "package.json not found" error?** → **[START_HERE_DEPLOYMENT_FIX.md](./START_HERE_DEPLOYMENT_FIX.md)** 
 
-**Quick fix**: Cloudflare is deploying from `main` branch, but your React app is on `copilot/repair-and-continue-structure` branch. Solution: Change branch in Cloudflare dashboard (2 min) OR merge to main. **[Full guide here →](./START_HERE_DEPLOYMENT_FIX.md)**
+**Quick fix**: Cloudflare is deploying from an old commit/branch that doesn't have the React app files. Solution: Change branch in Cloudflare dashboard to latest `main` (2 min). **[Full guide here →](./START_HERE_DEPLOYMENT_FIX.md)**
+
+**Verify your branch**: Run `npm run verify` to check if your current branch has all required files for deployment.
 
 ---
 
