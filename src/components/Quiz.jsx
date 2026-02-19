@@ -68,7 +68,7 @@ function Quiz({ vocabulary, deckTitle, quizMode, numQuestions, onComplete, perfo
       // Find GIF for this term if available
       let gif = null
       if (hasGifs && vocabCards) {
-        const card = vocabCards.find(c => c.prompt === word || c.answer === correctDefinition)
+        const card = vocabCards.find(c => c.prompt === word)
         gif = card?.gif || null
       }
       

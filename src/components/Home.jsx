@@ -32,7 +32,8 @@ function Home({ onStartQuiz }) {
     onStartQuiz({
       vocabulary: A_PLUS_VOCABULARY_DECK.vocabulary,
       deckTitle: `A+ Vocabulary • ${A_PLUS_VOCABULARY_DECK.title} (${vocabularyDeckCards} cards with GIFs)`,
-      hasGifs: true
+      hasGifs: true,
+      categoryCards: A_PLUS_VOCABULARY_DECK.cards
     })
   }
 
